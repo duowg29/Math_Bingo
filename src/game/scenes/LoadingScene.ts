@@ -9,21 +9,24 @@ export default class LoadingScene extends Phaser.Scene {
             frameHeight: 64,
             endFrame: 9
         });
+
         this.load.image('logo','assets/images/logo.png');
     }
-    
+
     create() {
+        const offsetTitle = -70;
+        const offsetLoading = 60;
+        const fontSizeTitle = '30px Arial';
+        const fontSizeLoading = '15px Arial';
 
-        // this.add.image(100,100,'logo').setOrigin(0.5,0.5).setDisplaySize(100,100);
-
-        const titleText = this.add.text(this.scale.width / 2 , this.scale.height / 2 - 80, 'Addition Scale', {
-            fontSize: '30px Arial',
+        this.add.text(this.scale.width / 2, this.scale.height / 2 + offsetTitle, 'Addition Scale', {
+            fontSize: fontSizeTitle,
             fontStyle: "bold",
             color: 'black'
         }).setOrigin(0.5).setResolution(2);
 
-        const loadingText = this.add.text(this.scale.width / 2 , this.scale.height / 2 + 65, 'LOADING', {
-            fontSize: '15px Arial',
+        this.add.text(this.scale.width / 2, this.scale.height / 2 + offsetLoading, 'LOADING', {
+            fontSize: fontSizeLoading,
             color: 'black'
         }).setOrigin(0.5).setResolution(2);
 
@@ -34,19 +37,17 @@ export default class LoadingScene extends Phaser.Scene {
             repeat: -1         
         });
 
-        const fruit = this.add.sprite(this.scale.width / 2, this.scale.height / 2, 'fruitFall');
-        fruit.play('falling');
+        const loading = this.add.sprite(this.scale.width / 2, this.scale.height / 2, 'loading');
+        loading.play('falling');
 
         this.cameras.main.once('camerafadeoutcomplete', () => {
             this.scene.launch('GamePlayScene');
-
-
-
         });
 
         // this.cameras.main.fadeOut(1000); 
     }
 
     update() {
+
     }
 }
