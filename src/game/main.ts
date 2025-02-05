@@ -13,20 +13,20 @@ import LoadingScene from "./scenes/LoadingScene";
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
 const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
-    width: 700,
-    height: 600,
+    width: 1920,
+    height: 1080,
     parent: 'phaser-example',
     backgroundColor: '#FFFFFF',
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         max: {
-            width: 700, 
-            height: 600, 
+            width: 1920, 
+            height: 1080, 
         },
         min: {
-            width: 320, 
-            height: 240,
+            width: 480, 
+            height: 270,
         }
     },
 

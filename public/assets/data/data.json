@@ -1,0 +1,76 @@
+{
+    "animations": [
+        {
+            "index": 1,
+            "object": "addition",
+            "animation": {
+                "type": "zoomin",
+                "duration": 1
+            },
+            "trigger": "Awake"
+        },
+        {
+            "index": 2,
+            "object": "subtraction",
+            "animation": {
+                "type": "zoomin",
+                "duration": 1
+            },
+            "trigger": "After"
+        },
+        {
+            "index": 3,
+            "object": "multiplication",
+            "animation": {
+                "type": "zoomin",
+                "duration": 1
+            },
+            "trigger": "After"
+        },
+        {
+            "index": 4,
+            "object": "division",
+            "animation": {
+                "type": "zoomin",
+                "duration": 1
+            },
+            "trigger": "After"
+        },
+        {
+            "index": 5,
+            "object": "infinitive",
+            "animation": {
+                "type": "appear-in-out",
+                "duration": 1
+            },
+            "trigger": "After"
+        },
+        {
+            "index": 4,
+            "object": "division",
+            "animation": {
+                "type": "zoomin",
+                "duration": 1
+            },
+            "trigger": "After"
+        },
+        {
+            "index": 5,
+            "object": "diamond",
+            "animation": {
+                "type": "zoomin and down",
+                "duration": 1
+            },
+            "trigger": "After"
+        },
+        {
+            "index": 4,
+            "object": "division",
+            "animation": {
+                "type": "zoomin",
+                "duration": 1
+            },
+            "trigger": "After"
+        }
+    ]
+}
