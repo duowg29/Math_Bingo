@@ -27,12 +27,6 @@
         "dev-nolog": "next dev -p 3003",
         "build-nolog": "next build"
     },
-    "dependencies": {
-        "next": "^14.2.3",
-        "phaser": "^3.87.0",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1"
-    },
     "devDependencies": {
         "@types/node": "^20",
         "@types/react": "^18",
