@@ -27,11 +27,6 @@
         "dev-nolog": "next dev -p 3003",
         "build-nolog": "next build"
     },
-<<<<<<< HEAD
-=======
-    "dependencies": {
-    },
->>>>>>> e05c5112af8dab5068581a4f4395af10ae02e67b
     "devDependencies": {
     }
 }
