@@ -150,7 +150,6 @@ export default class LoadingScene extends Phaser.Scene {
                                                         duration: 1000,
                                                         ease: 'Linear',
                                                         onComplete: () => {
-                                                            // Khi text đã hiện xong, mới bắt đầu tween `container`
                                                             this.tweens.add({
                                                                 targets: container,
                                                                 y: container.y + 25,
