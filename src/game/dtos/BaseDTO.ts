@@ -1,24 +1,45 @@
-export default class BaseService<T> {
-    protected scene: Phaser.Scene;
-    protected jsonPath: string;
-    protected items: T[] = [];
+export class BaseDTO{
+    private _positionX: number;
+    private _positionY: number;
 
-    constructor(scene: Phaser.Scene, jsonPath: string) {
-        this.scene = scene;
-        this.jsonPath = jsonPath;
-    }
-  
-    protected async loadData(): Promise<any> {
-        try {
-            const response = await fetch(this.jsonPath);
-            if (!response.ok) {
-                throw new Error(`Unable to load data from ${this.jsonPath}`);
-            }
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error('Error loading data:', error);
-            throw error;
-        }
-    }
+	constructor(
+        positionX: number,
+        positionY: number
+    ) {
+		this._positionX = positionX;
+		this._positionY = positionY;
+	}
+
+    /**
+     * Getter positionX
+     * @return {number}
+     */
+	public get positionX(): number {
+		return this._positionX;
+	}
+
+    /**
+     * Getter positionY
+     * @return {number}
+     */
+	public get positionY(): number {
+		return this._positionY;
+	}
+
+    /**
+     * Setter positionX
+     * @param {number} value
+     */
+	public set positionX(value: number) {
+		this._positionX = value;
+	}
+
+    /**
+     * Setter positionY
+     * @param {number} value
+     */
+	public set positionY(value: number) {
+		this._positionY = value;
+	}
+
 }
