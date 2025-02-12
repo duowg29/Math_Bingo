@@ -11,6 +11,7 @@ function App()
 
     // const outsideIn = () => {
 
+<<<<<<< HEAD
     //     if(phaserRef.current)
     //     {     
     //         const scene = phaserRef.current.scene as MainMenu;
@@ -23,6 +24,20 @@ function App()
     //         // }
     //     }
     // }
+=======
+        // if(phaserRef.current)
+        // {     
+        //     const scene = phaserRef.current.scene as MainMenu;
+            
+        //     if (scene)
+        //     {
+        //         scene.outsideIn(outsideInMessage, (message) => {
+        //             setInsideOutMessage(message);
+        //         });
+        //     }
+        // }
+    }
+>>>>>>> 4a3e05da39b40b6eaac45a0e0576d431c2347fa4
 
     function onMessageChange(e: any) {
         setOutsideInMessage(e.target.value);
