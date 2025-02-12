@@ -2,9 +2,11 @@
     "name": "mct-common",
     "version": "1.1.1",
     "description": "Module Common",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/phaserjs/template-nextjs.git"
+        "url": "git+https://github.com/YoloGameStudio/mct-common.git"
     },
     "author": "Phaser Studio <support@phaser.io> (https://phaser.io/)",
     "license": "MIT",
@@ -25,12 +27,20 @@
         "dev": "node log.js dev & next dev -p 3002",
         "build": "node log.js build & next build",
         "dev-nolog": "next dev -p 3002",
-        "build-nolog": "next build"
+        "build-nolog": "next build",
+        "build:lib": "tsc",
+        "prepare": "npm run build:lib"
     },
     "dependencies": {
             "next": "^14.2.3",
             "phaser": "^3.85.2",
             "react": "^18.3.1",
             "react-dom": "^18.3.1"
-        }
+    },
+    "devDependencies": {
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "typescript": "^5"
+    }
 }
