@@ -5,9 +5,6 @@
 
 import { AUTO, Game } from "phaser";
 import Boot from "./scenes/Boot";
-import GameOver from "./scenes/GameOver";
-import MainMenu from "./scenes/MainMenu";
-import Preloader from "./scenes/Preloader";
 import LoadingScene from "./scenes/LoadingScene";
 
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
@@ -41,9 +38,6 @@ const config: Phaser.Types.Core.GameConfig = {
     },
     scene: [
         Boot,
-        Preloader,
-        MainMenu,
-        GameOver,
         LoadingScene,  
     ]
 };
