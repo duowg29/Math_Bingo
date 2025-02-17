@@ -192,6 +192,7 @@ export default class LoadingScene extends Phaser.Scene {
             },
             onComplete: () => {
                 this.scene.start('GamePlayScene'); 
+                console.log('next GamePlayScene');
             },
         });
     }

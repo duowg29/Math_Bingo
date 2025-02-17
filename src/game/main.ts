@@ -3,7 +3,7 @@
 import { AUTO, Game } from "phaser";
 import Boot from "./scenes/Boot";
 import MainGame from './scenes/Game';
-import { LoadingScene } from "mct-commom";
+import LoadingScene from "./scenes/LoadingScene";
 
 
 
