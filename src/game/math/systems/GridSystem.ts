@@ -1,4 +1,3 @@
-import { ElementViewModelCell } from "../components/viewModels/ElementViewModelCell";
 import { Grid } from "./Grid";
 
 export class GridSystem {
@@ -21,7 +20,7 @@ export class GridSystem {
     evmFromColAndRowIndex(mType: string, tlCol: number, tlRow: number, brCol: number, brRow: number) {
         const tlCell = this.cell(tlCol, tlRow);
         const brCell = this.cell(brCol, brRow);
-        return new ElementViewModelCell(mType, tlCell, brCell, this);
+        // return new ElementViewModelCell(mType, tlCell, brCell, this);
     }
 
     TLC() {
