@@ -16,41 +16,10 @@ export default class LoadingScene extends Phaser.Scene {
         this.load.image('subtraction','assets/images/MCT_subtraction.png');
         this.load.image('division','assets/images/MCT_division.png');
         this.load.image('infinitive','assets/images/MCT_infinitive.png');
-        
-        // let animations = [
-        //     {
-        //         index: 1,
-        //         object: 'cong',
-        //         animation: {
-        //             type: 'zoomin',
-        //             duration: 1
-        //         },
-        //         trigger: "Awake" // After, With
-        //     },
-        //     {
-        //         index: 2,
-        //         object: 'tru',
-        //         animation: {
-        //             type: 'zoomin',
-        //             duration: 1
-        //         },
-        //         trigger: "After" // After, With
-        //     },
-        //     {
-        //         index: 2,
-        //         object: 'infinitive',
-        //         animation: {
-        //             type: 'appear-in-out',
-        //             duration: 1
-        //         },
-        //         trigger: "After" // After, With
-        //     },
-        // ]
     }
 
     create() {
         this.add.image(0, 0, 'background').setOrigin(0, 0).setDisplaySize(this.scale.width, this.scale.height);
-        // const logo = this.add.image(200, 200, 'logo').setOrigin(0.5, 0.5).setDisplaySize(95, 75).setCrop(0,0,100,50);
         const container = this.add.container(this.scale.width / 2, this.scale.height / 2).setScale(1.5);
         const diamond = this.add.image(0,-100,'diamond').setDisplaySize(95,34).setOrigin(0.5,0.5).setScale(0);
         const addition = this.add.image(23,0,'addition').setDisplaySize(18,18).setOrigin(0.5,0.5).setScale(0);
@@ -99,29 +68,31 @@ export default class LoadingScene extends Phaser.Scene {
         container.add([text, addition, subtraction, division1, division2, multiplication, 
             infinitive1,
              diamond]);
+
+        const duration = 150;
         
         this.tweens.add({
             targets: [addition], 
             scale: 1, 
-            duration: 500, 
+            duration: duration, 
             ease: 'Back.easeOut',
             onComplete: () => {
                 this.tweens.add({
                     targets: [subtraction], 
                     scale: 1, 
-                    duration: 500, 
+                    duration: duration, 
                     ease: 'Back.easeOut',
                     onComplete: () => {
                         this.tweens.add({
                             targets: [multiplication], 
                             scale: 1, 
-                            duration: 500, 
+                            duration: duration, 
                             ease: 'Back.easeOut',
                             onComplete: () => {
                                 this.tweens.add({
                                     targets: [division1, division2], 
                                     scale: 1, 
-                                    duration: 500, 
+                                    duration: duration, 
                                     ease: 'Back.easeOut',
                                     onComplete: () => {
                                         const cropData = { x: 41, width: 18 };
@@ -209,10 +180,12 @@ export default class LoadingScene extends Phaser.Scene {
             color: 'white',
         }).setOrigin(0.5);
 
+        const loadingDuration = 1500;
+
         this.tweens.addCounter({
             from: 0,
             to: 100,
-            duration: 3000,
+            duration: loadingDuration,
             onUpdate: (tween) => {
                 const value = Math.round(tween.getValue());
                 loadingBarFill.width = (value / 100) * loadingBarWidth;

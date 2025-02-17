@@ -1,12 +1,10 @@
 
 
-
-//  Find out more information about the Game Config at:
-
 import { AUTO, Game } from "phaser";
 import Boot from "./scenes/Boot";
 import LoadingScene from "./scenes/LoadingScene";
-import MainMenu from './scenes/MainMenu';
+import MainGame from './scenes/Game';
+
 
 
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
@@ -40,11 +38,8 @@ const config: Phaser.Types.Core.GameConfig = {
     },
     scene: [
         Boot,
-<<<<<<< HEAD
-        MainMenu,
-=======
->>>>>>> 4a3e05da39b40b6eaac45a0e0576d431c2347fa4
-        LoadingScene,  
+        MainGame,
+        LoadingScene 
     ]
 };
 
@@ -55,3 +50,4 @@ const StartGame = (parent: string) => {
 }
 
 export default StartGame;
+

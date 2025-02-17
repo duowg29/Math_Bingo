@@ -1,10 +1,13 @@
 {
-    "name": "mct-common",
+    "name": "mct-commom",
     "version": "1.1.1",
     "description": "Module Common",
+    "main": "dist/index.js",
+    "type": "module",
+    "types": "dist/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/YoloGameStudio/mct-common.git"
+        "url": "git+https://github.com/QuangVinh32/mct-common.git"
     },
     "author": "Phaser Studio <support@phaser.io> (https://phaser.io/)",
     "license": "MIT",
@@ -22,20 +25,25 @@
         "typescript"
     ],
     "scripts": {
-        "dev": "node log.js dev & next dev -p 3002",
+        "dev": "node log.js dev & next dev -p 3004",
         "build": "node log.js build & next build",
-        "dev-nolog": "next dev -p 3002",
+        "dev-nolog": "next dev -p 3004",
         "build-nolog": "next build",
         "build:lib": "tsc",
         "prepare": "npm run build:lib"
     },
     "dependencies": {
-        "next": "^14.2.3",
+        "next": "14.2.3",
         "phaser": "^3.85.2",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1"
+        "react": "^18",
+        "react-dom": "^18",
+        "typescript": "^5"
+
     },
     "devDependencies": {
-        "@types/node": "22.13.1"
+        "@types/node": "20.17.17",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "typescript": "^5"
     }
 }

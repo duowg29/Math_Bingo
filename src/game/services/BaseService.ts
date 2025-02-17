@@ -1,3 +1,4 @@
+
 export default class BaseService<T> {
     protected scene: Phaser.Scene;
     protected jsonPath: string;

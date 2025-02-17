@@ -1,4 +1,4 @@
-export class BaseDTO{
+export default class BaseDTO{
     private _positionX: number;
     private _positionY: number;
 
