@@ -191,7 +191,7 @@ export default class LoadingScene extends Phaser.Scene {
                 loadingText.setText(`${value}%`); 
             },
             onComplete: () => {
-                // this.scene.start('GamePlayScene'); 
+                this.scene.start('GamePlayScene'); 
             },
         });
     }
