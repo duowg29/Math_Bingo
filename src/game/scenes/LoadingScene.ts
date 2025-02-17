@@ -98,7 +98,6 @@ export default class LoadingScene extends Phaser.Scene {
                                         const cropData = { x: 41, width: 18 };
                                         this.tweens.add({
                                             targets: cropData,
-                                           
                                             x: 0,               
                                             width: fullWidth,   
                                             duration: 1000,     
@@ -180,7 +179,7 @@ export default class LoadingScene extends Phaser.Scene {
             color: 'white',
         }).setOrigin(0.5);
 
-        const loadingDuration = 1500;
+        const loadingDuration = 3000;
 
         this.tweens.addCounter({
             from: 0,
