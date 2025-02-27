@@ -175,7 +175,7 @@ export default class LoadingScene extends Phaser.Scene {
             color: 'white',
         }).setOrigin(0.5);
 
-        const loadingDuration = 3000;
+        const loadingDuration = 5000;
 
         this.tweens.addCounter({
             from: 0,

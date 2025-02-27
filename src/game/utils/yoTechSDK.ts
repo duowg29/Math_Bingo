@@ -129,8 +129,6 @@ export type GameInstance = {
   config: { [key: string]: any };
 };
 
-
-
 export type GameConfig = {
   name: string;
   startTime: number;
