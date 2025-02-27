@@ -4,12 +4,8 @@ export default class LoadingScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('logo', 'assets/images/MCT_logo.png');
         this.load.image('background', 'assets/images/MCT_background.png');
-        this.load.image('title', 'assets/images/MCT_title.png');
-        this.load.image('text_loading', 'assets/images/MCT_text_loading.png');
         this.load.image('effect', 'assets/images/MCT_effect.png');
-        this.load.image('expression', 'assets/images/MCT_expression.png');
 
         this.load.image('diamond','assets/images/MCT_diamond.png');
         this.load.image('addition','assets/images/MCT_addition.png');
