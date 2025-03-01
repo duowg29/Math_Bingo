@@ -67,4 +67,6 @@ export { Cell, Grid, GridSystem}
 // utils
 export { ArrayUtils, DepthUtil}
 
-export type { SDKMessage, SKDParams, SystemInfo, ProductionInfo, Config, GameInstance, GameConfig, UserQuest, Reward, yoTechSDK}
+export type { SDKMessage, SKDParams, SystemInfo, ProductionInfo, Config, GameInstance, GameConfig, UserQuest, Reward }
+
+export {yoTechSDK}
