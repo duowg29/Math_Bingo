@@ -85,6 +85,7 @@ let messageHandler = (message: SDKMessage) => {
   console.log('Unhandled Message', JSON.stringify(message, null, 2));
 };
 
+// action
 const DEBUG_EVENTS = {
   ADD_DEBUG_MESSAGE: 'ADD_DEBUG_MESSAGE',
   TOGGLE_DEBUG_SCREEN: 'TOGGLE_DEBUG_SCREEN',
