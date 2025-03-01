@@ -1,17 +1,20 @@
 import axios from 'axios';
 
+// Data
 export type SDKMessage = {
   eventType: string;
   eventData?: unknown;
 };
-
+// Androi
 interface AndroidYoTechSDK {
   onMessage: (message: string) => void;
 }
+// Ios
 interface IOSYoTechSDK {
   postMessage: (message: string) => void;
 }
 
+// Device type
 declare global {
   interface Window {
     YoTechSDK?: AndroidYoTechSDK;
@@ -24,6 +27,7 @@ const CONTAINER_ID = '__sdk_debug_container';
 let isShowing = false;
 const messages: string[] = [];
 
+// function debug 1
 const _toggleDebugScreen = () => {
   if (!isShowing) {
     const overlay = document.createElement('div');
@@ -65,6 +69,7 @@ const _toggleDebugScreen = () => {
   }
 };
 
+// function debug 2
 const _addDebugMessage = (debugMessage: string) => {
   const text = document.createElement('p');
   text.innerHTML = debugMessage;
@@ -75,6 +80,7 @@ const _addDebugMessage = (debugMessage: string) => {
   messages.push(debugMessage);
 };
 
+// function thông báo lỗi
 let messageHandler = (message: SDKMessage) => {
   console.log('Unhandled Message', JSON.stringify(message, null, 2));
 };
@@ -84,6 +90,7 @@ const DEBUG_EVENTS = {
   TOGGLE_DEBUG_SCREEN: 'TOGGLE_DEBUG_SCREEN',
 };
 
+// function nhận data
 window.addEventListener(
   'message',
   event => {
@@ -103,8 +110,6 @@ window.addEventListener(
   },
   false
 );
-
-
 
 export type SKDParams = {
   templateKey: string;
@@ -217,6 +222,7 @@ const yoTechSDK = {
       return resp.data as GameInstance;
     }
   },
+
   getUserQuests: async (id: string) => {
     const resp = await axios.get(`${apiUrl}/api/game/example?id=${id}`, {
       headers: headersData,
@@ -224,6 +230,7 @@ const yoTechSDK = {
     });
     return resp.data as UserQuest[];
   },
+
   useTickets: async (id: string) => {
     const resp = await axios.post(
       `${apiUrl}/api/example`,
@@ -236,9 +243,12 @@ const yoTechSDK = {
     );
     return resp.data as Reward[];
   },
+
   registerHandler: (handler: (message: SDKMessage) => void) => {
     messageHandler = handler;
   },
+
+  // function gửi đi
   postMessage: (message: SDKMessage) => {
     if (window.YoTechSDK) {
       window.YoTechSDK.onMessage(JSON.stringify(message));
@@ -247,6 +257,7 @@ const yoTechSDK = {
       window.webkit.messageHandlers.YoTechSDK.postMessage(JSON.stringify(message));
     }
   },
+
   getParams: (): SKDParams => sdkParams,
   getInstanceConfig: () => instanceConfig,
   isShowingDebugScreen: () => isShowing,
