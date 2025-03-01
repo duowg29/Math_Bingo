@@ -47,7 +47,7 @@ import { ProblemModel } from "./game/math/components/models/ProblemModel";
 import { ProblemSequenceModel } from "./game/math/components/models/ProblemSequenceModel";
 import { SequenceModel } from "./game/math/components/models/SequenceModel";
 import { TextModel } from "./game/math/components/models/TextModel";
-import yoTechSDK, { Config, GameConfig, GameInstance, ProductionInfo, Reward, SDKMessage, SKDParams, SystemInfo, UserQuest } from "./game/utils/yoTechSDK";
+import yoTechSDK, { SDKMessage } from "./game/utils/yoTechSDK";
 
 
 export { BaseController, BaseDTO, BaseService, LoadingScene, BaseView };
@@ -67,6 +67,6 @@ export { Cell, Grid, GridSystem}
 // utils
 export { ArrayUtils, DepthUtil}
 
-export type { SDKMessage, SKDParams, SystemInfo, ProductionInfo, Config, GameInstance, GameConfig, UserQuest, Reward }
+export type { SDKMessage }
 
 export {yoTechSDK}
