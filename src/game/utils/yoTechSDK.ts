@@ -7,11 +7,11 @@ export type SDKMessage = {
 };
 // Androi
 interface AndroidYoTechSDK {
-  onMessage: (message: string) => void;
+  onMessage: (message: string, origin: string) => void;
 }
 // Ios
 interface IOSYoTechSDK {
-  postMessage: (message: string) => void;
+  postMessage: (message: string, origin:string) => void;
 }
 
 // Device type
@@ -250,12 +250,12 @@ const yoTechSDK = {
   },
 
   // function gửi đi
-  postMessage: (message: SDKMessage) => {
+  postMessage: (message: SDKMessage,origin: string) => {
     if (window.YoTechSDK) {
-      window.YoTechSDK.onMessage(JSON.stringify(message));
+      window.YoTechSDK.onMessage(JSON.stringify(message),origin);
     }
     if (window.webkit?.messageHandlers?.YoTechSDK) {
-      window.webkit.messageHandlers.YoTechSDK.postMessage(JSON.stringify(message));
+      window.webkit.messageHandlers.YoTechSDK.postMessage(JSON.stringify(message),origin);
     }
   },
 
