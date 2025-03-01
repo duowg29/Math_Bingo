@@ -39,9 +39,12 @@ const yoTechSDK = {
   postMessage: (message: SDKMessage, origin: string) => {
     if (window.YoTechSDK) {
       window.YoTechSDK.onMessage(JSON.stringify(message), origin);
-    }
-    if (window.webkit?.messageHandlers?.YoTechSDK) {
+    } 
+    else if (window.webkit?.messageHandlers?.YoTechSDK) {
       window.webkit.messageHandlers.YoTechSDK.postMessage(JSON.stringify(message), origin);
+    }
+    else {
+      window.postMessage(message, origin);
     }
   },
 
