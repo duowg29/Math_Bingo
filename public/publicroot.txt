@@ -1,0 +1,157 @@
+      const list = new ListButton({
+        scene: this,
+        x: 800,
+        y: 500,
+        orientation: 'vertical',
+        spacing: 20,
+        buttonConfigs: [
+          {
+            scene: this,
+            x: 0,
+            y: 0,
+            width: 150,
+            height: 50,
+            text: "Button 1",
+            backgroundColor: "#ff0000",
+            shape: "rectangle",
+            borderRadius: 10,
+
+            onClick: () => console.log("Button 1 clicked!")
+          },
+          {
+            scene: this, 
+            x: 0,
+            y: 0,
+            width: 150,
+            height: 50,
+            text: "Button 2",
+            backgroundColor: "#00ff00",
+            shape: "rectangle",
+            borderRadius: 10,
+            onClick: () => console.log("Button 2 clicked!")
+          },
+          {
+            scene: this, 
+            x: 0,
+            y: 0,
+            width: 150,
+            height: 50,
+            text: "Button 3",
+            backgroundColor: "#0000ff",
+            shape: "rectangle",
+            borderRadius: 10,
+            onClick: () => console.log("Button 3 clicked!")
+          },
+          // {
+          //   scene: this, 
+          //   x: 0,
+          //   y: 0,
+          //   width: 150,
+          //   height: 50,
+          //   text: "Button 4",
+          //   backgroundColor: "#FFA500",
+          //   shape: "rectangle",
+          //   borderRadius: 10,
+          //   onClick: () => console.log("Button 3 clicked!")
+          // }
+        ]
+      });      
+
+
+      const list2 = new ListButton({
+        scene: this,
+        x: 1300,
+        y: 500  ,
+        orientation: 'horizontal',
+        spacing: 20,
+        // align: "space-around", // Chọn kiểu căn chỉnh
+
+        buttonConfigs: [
+          {
+            scene: this,
+            x: 0,
+            y: 0,
+            width: 150,
+            height: 50,
+            text: "Button 1",
+            backgroundColor: "#ff0000",
+            shape: "rectangle",
+            borderRadius: 10,
+            onClick: () => console.log("Button 1 clicked!")
+          },
+          {
+            scene: this, 
+            x: 0,
+            y: 0,
+            width: 150,
+            height: 50,
+            text: "Button 2",
+            backgroundColor: "#00ff00",
+            shape: "rectangle",
+            borderRadius: 10,
+            onClick: () => console.log("Button 2 clicked!")
+          },
+          {
+            scene: this, 
+            x: 0,
+            y: 0,
+            width: 150,
+            height: 50,
+            text: "Button 3",
+            backgroundColor: "#0000ff",
+            shape: "rectangle",
+            borderRadius: 10,
+            onClick: () => console.log("Button 3 clicked!")
+          },
+          {
+            scene: this, 
+            x: 0,
+            y: 0,
+            width: 150,
+            height: 50,
+            text: "Button 4",
+            backgroundColor: "#FFA500",
+            shape: "rectangle",
+            borderRadius: 10,
+            onClick: () => console.log("Button 3 clicked!")
+          }
+        ]
+      });
+
+      const listButton = new ListButton({
+        scene: this, 
+        x: 250, 
+        y: 200,
+        buttonConfigs: [
+          { 
+            scene: this,
+            x: 0,
+            y: 0,
+            width: 110,
+            height: 140,
+            imageKey: 'button',
+            text: 'button 1',
+            fontSize: 20,
+            textColor: '#000000',
+            onClick: () => {
+              const isCorrect = Math.random() > 0.5; 
+              console.log(isCorrect)
+              return isCorrect; 
+            },
+          },
+          { scene: this, x: 0, y:0, imageKey: "button", text:"button2", fontSize: 20,
+            textColor: '#000000', width: 110, height: 140, onClick: () => 
+              console.log("Image Button Clicked!"),
+          },
+          { scene: this, x: 0, y:0, imageKey: "button", text:"button2", fontSize: 20,
+            textColor: '#000000', width: 110, height: 140, onClick: () => console.log("Image Button Clicked!"),
+          },
+        ],
+        orientation: "horizontal",
+        spacing: 20,
+        // aligin: "around"
+        // aligin: "between"
+        // aligin: "evenly"
+
+
+      });
