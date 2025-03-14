@@ -4,11 +4,10 @@ import { AUTO, Game } from "phaser";
 import Boot from "./scenes/Boot";
 import LoadingScene from "./scenes/LoadingScene";
 import MainGame from './scenes/Game';
-import ConfirmDialog from "./liblaries/popups/ConfirmDialog";
-import SettingPopup from "./liblaries/popups/SettingPopup";
-import EndGamePopup from "./liblaries/popups/EndGamePopup";
-import NotificationPopup from "./liblaries/popups/NotificationPopup";
-import BaseTime from "./liblaries/times/BaseTime";
+import ConfirmDialog from "./components/popups/ConfirmDialog";
+import SettingPopup from "./components/popups/SettingPopup";
+import EndGamePopup from "./components/popups/EndGamePopup";
+import NotificationPopup from "./components/popups/NotificationPopup";
 import TestScene from "./scenes/TestScene";
 
 
@@ -39,8 +38,8 @@ const config: Phaser.Types.Core.GameConfig = {
         default: 'arcade',
         arcade: {
             gravity: { x: 0, y: 0 },
-            debug: false,
-            debugShowVelocity: false
+            debug: true,
+            debugShowVelocity: true
         }
     },
     scene: [
@@ -51,7 +50,6 @@ const config: Phaser.Types.Core.GameConfig = {
         SettingPopup,
         EndGamePopup,
         NotificationPopup,
-        BaseTime,
         TestScene
        
     ]

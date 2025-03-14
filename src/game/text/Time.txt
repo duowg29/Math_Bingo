@@ -1,0 +1,94 @@
+export default class BaseTime extends Phaser.Scene {
+    private timeLeft: number = 10;
+    private totalTime: number = 10;
+    private timeText!: Phaser.GameObjects.Text;
+    private clockContainer!: Phaser.GameObjects.Container;
+    private movingHand!: Phaser.GameObjects.Line;
+    private sector!: Phaser.GameObjects.Graphics;
+    private timerEvent!: Phaser.Time.TimerEvent;
+    private isTimerRunning: boolean = false;
+
+
+    constructor() {
+        super("BaseTime");
+    }
+
+    create() {
+        const positionX = this.cameras.main.centerX;
+        const positionY = this.cameras.main.centerY;
+        const radius = 80;
+
+        this.clockContainer = this.add.container(positionX, positionY).setScale(0.7);
+
+        const clockFace = this.add.circle(0, 0, radius, 0xffffff).setStrokeStyle(8, 0x000000).setRotation(2);
+
+        const fixedHand = this.add.line(0, 0, 0, 0, 0, -radius, 0x0000ff).setLineWidth(4).setOrigin(0);
+
+        this.movingHand = this.add.line(0, 0, 0, 0, 0, -radius, 0x0000ff).setLineWidth(4).setOrigin(0);
+
+        this.sector = this.add.graphics();
+
+        this.timeText = this.add.text(0, radius + 50, `Thời gian: ${this.timeLeft}`, {
+            fontSize: "33px",
+            color: "#ffffff",
+            fontStyle: "bold",
+            stroke: "#000000",
+            strokeThickness: 3
+        }).setOrigin(0.5).setResolution(2);
+
+        this.clockContainer.add([clockFace, this.sector, fixedHand, this.movingHand, this.timeText]);
+
+        this.startTimer();
+    }
+
+    startTimer() {
+        if (this.isTimerRunning) return; 
+        this.isTimerRunning = true;
+    
+        this.tweens.add({
+            targets: this.movingHand,
+            rotation: Phaser.Math.DegToRad(360),
+            duration: this.totalTime * 1000,
+            ease: "Linear",
+                onUpdate: () => {
+                this.updateSector(); 
+            }
+            
+        });
+    
+        this.timerEvent = this.time.addEvent({
+            delay: 1000,
+            callback: this.updateTime,
+            callbackScope: this,
+            loop: true
+        });
+    }
+
+    updateTime() {
+        this.timeLeft--;
+        this.timeText.setText(`Thời gian: ${this.timeLeft}`);
+
+        if (this.timeLeft <= 0) {
+            this.timeText.setText("Hết giờ!");
+            console.log("Thời gian đã hết!");
+        }
+    }
+
+    updateSector() {
+        this.sector.clear(); 
+        this.sector.fillStyle(0x0000ff, 0.5); 
+    
+        const angle = Phaser.Math.RadToDeg(this.movingHand.rotation); 
+        const startAngle = -90;
+        const endAngle = angle - 90; 
+    
+        const radius = 80;
+    
+        // Vẽ hình quạt từ kim cố định (12h) đến kim di chuyển
+        this.sector.slice(0, 0, radius, Phaser.Math.DegToRad(startAngle), Phaser.Math.DegToRad(endAngle), false);
+        this.sector.fillPath();
+    }
+    
+
+   
+}

@@ -15,9 +15,7 @@ export type ButtonConfig = {
   padding?: number;
   borderColor?: string;
   backgroundColor?: string;
-  // boxShadow?: boolean;
   cursor?: string;
-  // transition?: boolean;
   shape?: 'rectangle' | 'circle' | 'square' | 'diamond';
   borderRadius?: number;
   imageKey?: string;

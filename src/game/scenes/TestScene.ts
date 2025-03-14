@@ -1,13 +1,11 @@
-import { BaseButton } from "../liblaries/buttons/BaseButton";
-import { GraphicsButton } from "../liblaries/buttons/GraphicsButton";
-import { ImageButton } from "../liblaries/buttons/ImageButton";
-import { ListButton } from "../liblaries/buttons/ListButton";
-import { BaseProgressBar } from "../liblaries/progress_bar/BaseProgressBar";
+import { ButtonConfig } from "../components/buttons/BaseButton";
+import { GraphicsButton } from "../components/buttons/GraphicsButton";
+import { ImageButton } from "../components/buttons/ImageButton";
+import { ListButton } from "../components/buttons/ListButton";
+
 
 export default class TestScene extends Phaser.Scene {
-  private buttonContainer!: Phaser.GameObjects.Container;
-  private border!: Phaser.GameObjects.Rectangle;
-  private buttons: Phaser.GameObjects.Container[] = [];
+
     constructor() {
         super('TestScene');
     }
@@ -18,7 +16,8 @@ export default class TestScene extends Phaser.Scene {
 
     create(){
 
-      const myButton = new GraphicsButton({
+      const buttonConfigs: ButtonConfig[] = [
+        {
         scene: this,
         x: 600,
         y: 500,
@@ -35,25 +34,81 @@ export default class TestScene extends Phaser.Scene {
           const isCorrect = Math.random() > 0.5; 
           console.log(isCorrect)
           return isCorrect; 
-        }
-      });
-
-      const imageButton = new ImageButton({
+          },
+          },
+        { 
+          scene: this, 
+          x: 0, y: 0,            
+          width: 110,
+          height: 140,
+          imageKey: "button",
+          textColor:"0xFF0000",
+          text: "Settings",
+          onClick: () => {
+            const isCorrect = Math.random() > 0.5; 
+            console.log(isCorrect)
+            return isCorrect; 
+          },
+        },
+        { 
+          scene: this, 
+          x: 0, y: 0,             
+          width: 110,
+          height: 140,
+          imageKey: "button",
+          textColor:"0xFF0000", 
+          text: "Exit",
+          onClick: () => {
+            const isCorrect = Math.random() > 0.5; 
+            console.log(isCorrect)
+            return isCorrect; 
+          }, 
+        },
+        { 
+          scene: this, 
+          x: 0, y: 0,             
+          width: 110,
+          height: 140,
+          imageKey: "button",
+          textColor:"0xFF0000", 
+          text: "Download",
+          onClick: () => {
+            const isCorrect = Math.random() > 0.5; 
+            console.log(isCorrect)
+            return isCorrect; 
+          }, 
+        },
+      ];
+  
+      const listButton = new ListButton({
         scene: this,
-        x: 250,
-        y: 500,
-        width: 110,
-        height: 140,
-        imageKey: 'button',
-        text: 'Click Me',
-        borderRadius: 10, 
-        fontSize: 20,
-        textColor: '#0x00000',
-        onClick: () => console.log("Image Button Clicked!"),
+        x: 300,
+        y: 100,
+        buttonConfigs: buttonConfigs, 
+        orientation: "horizontal", 
+        align: "around" 
       });
-    
 
-    }
-   
+    // const progressData = new ProgressBarModel(1, 300, 400, 1000, 15,"0x006400", 3000);
+    // this.lineProgressView = new LinearProgressBarView(this, progressData);
+    // this.lineProgressView.startProgress();
+
+    // const progressBarData = new ProgressBarModel(1, 300, 700, 40, 200, "0x006400", 3000);
+    // const circularProgress = new CircularProgressBarView(this, progressBarData);
+    // circularProgress.setScale(2)
+    // this.add.existing(circularProgress);
+    // circularProgress.startProgress();
+
+  }
+
 
 }
+
+      
+
+    
+
+   
+
+    
+  
