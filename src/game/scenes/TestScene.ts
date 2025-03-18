@@ -1,10 +1,12 @@
 import { ButtonConfig } from "../components/buttons/BaseButton";
-import { GraphicsButton } from "../components/buttons/GraphicsButton";
-import { ImageButton } from "../components/buttons/ImageButton";
 import { ListButton } from "../components/buttons/ListButton";
+import { BaseProgressBarModel } from "../components/progressBars/models/BaseProgressBarModel";
+import { LinearProgressBarModelView, Orientation } from "../components/progressBars/models/LinearProgressBarModelView";
+import { LinearProgressBarView } from "../components/progressBars/views/LinearProgressBarView";
 
 
 export default class TestScene extends Phaser.Scene {
+  private progressBar: any;
 
     constructor() {
         super('TestScene');
@@ -89,19 +91,30 @@ export default class TestScene extends Phaser.Scene {
         align: "around" 
       });
 
-    // const progressData = new ProgressBarModel(1, 300, 400, 1000, 15,"0x006400", 3000);
-    // this.lineProgressView = new LinearProgressBarView(this, progressData);
-    // this.lineProgressView.startProgress();
 
-    // const progressBarData = new ProgressBarModel(1, 300, 700, 40, 200, "0x006400", 3000);
-    // const circularProgress = new CircularProgressBarView(this, progressBarData);
-    // circularProgress.setScale(2)
-    // this.add.existing(circularProgress);
-    // circularProgress.startProgress();
+      const progressBarModel = new BaseProgressBarModel(0, 100, 0);
+
+      this.progressBar = new LinearProgressBarView(
+          this,
+          progressBarModel,
+          new LinearProgressBarModelView(
+          300,900,
+          1200, 20,  
+          '0x444444',
+          '0x00ff00',  
+          8,        
+          5000,      
+          0,        
+          Orientation.VERTICAL 
+          
+          )
+      );  
+
+      this.progressBar.startProgress();
+
+
 
   }
-
-
 }
 
       

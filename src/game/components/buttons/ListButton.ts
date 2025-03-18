@@ -21,9 +21,7 @@ export class ListButton extends Phaser.GameObjects.Container {
   constructor(config: ListButtonConfig) {
     super(config.scene, config.x, config.y);
     config.scene.add.existing(this);
-
     this.createButtons(config);
-
     this.updateContainerSize();
 
   }
@@ -132,8 +130,7 @@ export class ListButton extends Phaser.GameObjects.Container {
             0x000000,
             0
         );
-        console.log("containerWith after",this.containerWidth)
-        
+                
         this.border.setStrokeStyle(2, 0xff0000);
         this.border.setOrigin(0,0)
   

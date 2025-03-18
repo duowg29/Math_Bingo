@@ -1,34 +1,127 @@
-export class ProgressBarViewModel {
-    public x: number;
-    public y: number;
-    public width: number;
-    public height: number;
-    public backgroundColor: number;
-    public fillColor: number;
-    public borderRadius: number;
-    public smoothTransition: boolean;
-    public duration: number;
+export class BaseProgressBarModelView {
+    private _x: number;
+    private _y: number;
+    private _backgroundColor: string;
+    private _fillColor: string;
+    private _borderRadius: number;
+    private _duration: number;
     
     constructor(
       x: number, 
-      y: number, 
-      width: number, 
-      height: number, 
-      backgroundColor: number = 0x000000, 
-      fillColor: number = 0x00ff00,
+      y: number,
+      backgroundColor: string , 
+      fillColor: string,
       borderRadius: number = 5,
-      smoothTransition: boolean = true,
       duration: number = 1000
     ) {
-      this.x = x;
-      this.y = y;
-      this.width = width;
-      this.height = height;
-      this.backgroundColor = backgroundColor;
-      this.fillColor = fillColor;
-      this.borderRadius = borderRadius;
-      this.smoothTransition = smoothTransition;
-      this.duration = duration;
+      this._x = x;
+      this._y = y;
+      this._backgroundColor = backgroundColor;
+      this._fillColor = fillColor;
+      this._borderRadius = borderRadius;
+      this._duration = duration;
     }
+
+    /**
+     * Getter x
+     * @return {number}
+     */
+	public get x(): number {
+		return this._x;
+	}
+
+    /**
+     * Getter y
+     * @return {number}
+     */
+	public get y(): number {
+		return this._y;
+	}
+
+
+
+    /**
+     * Getter borderRadius
+     * @return {number}
+     */
+	public get borderRadius(): number {
+		return this._borderRadius;
+	}
+
+    /**
+     * Getter duration
+     * @return {number}
+     */
+	public get duration(): number {
+		return this._duration;
+	}
+
+    /**
+     * Setter x
+     * @param {number} value
+     */
+	public set x(value: number) {
+		this._x = value;
+	}
+
+    /**
+     * Setter y
+     * @param {number} value
+     */
+	public set y(value: number) {
+		this._y = value;
+	}
+
+    /**
+     * Setter borderRadius
+     * @param {number} value
+     */
+	public set borderRadius(value: number) {
+		this._borderRadius = value;
+	}
+
+    /**
+     * Setter duration
+     * @param {number} value
+     */
+	public set duration(value: number) {
+		this._duration = value;
+	}
+
+
+    /**
+     * Getter backgroundColor
+     * @return {string}
+     */
+	public get backgroundColor(): string {
+		return this._backgroundColor;
+	}
+
+    /**
+     * Getter fillColor
+     * @return {string}
+     */
+	public get fillColor(): string {
+		return this._fillColor;
+	}
+
+    /**
+     * Setter backgroundColor
+     * @param {string} value
+     */
+	public set backgroundColor(value: string) {
+		this._backgroundColor = value;
+	}
+
+    /**
+     * Setter fillColor
+     * @param {string} value
+     */
+	public set fillColor(value: string) {
+		this._fillColor = value;
+	}
+
+
+    
   }
   

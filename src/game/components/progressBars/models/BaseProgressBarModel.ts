@@ -1,4 +1,4 @@
-export class ProgressBarModel {
+export  class BaseProgressBarModel {
     private _min: number;
     private _max: number;
     private _value: number;
@@ -22,10 +22,45 @@ export class ProgressBarModel {
     set value(newValue: number) {
       this._value = Phaser.Math.Clamp(newValue, this._min, this._max);
       this._onChange(this._value, this.percentage);
-    }
+  }
+  
+  
   
     set onChange(callback: (value: number, percentage: number) => void) {
       this._onChange = callback;
     }
-  }
+
+
+      /**
+       * Getter min
+       * @return {number}
+       */
+    public get min(): number {
+      return this._min;
+    }
+
+      /**
+       * Getter max
+       * @return {number}
+       */
+    public get max(): number {
+      return this._max;
+    }
+
+      /**
+       * Setter min
+       * @param {number} value
+       */
+    public set min(value: number) {
+      this._min = value;
+    }
+
+      /**
+       * Setter max
+       * @param {number} value
+       */
+    public set max(value: number) {
+      this._max = value;
+    }
+}
   
