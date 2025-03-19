@@ -1,3 +1,4 @@
+import { Direction } from "../enums/Direction";
 import { Orientation } from "../enums/Orientation";
 import { BaseProgressBarModelView } from "./BaseProgressBarModelView";
 
@@ -6,20 +7,20 @@ export class LinearProgressBarModelView extends BaseProgressBarModelView {
     private _width: number;
     private _height: number;
     private _orientation: Orientation;
-    private _direction: any;
+    private _direction: Direction;
     
     constructor(
       x: number,
       y: number,
       width: number,
       height: number,
-      backgroundColor: string ,
+      backgroundColor: string,
       fillColor: string,
       borderRadius: number = 5,
       duration: number = 2000,
       progress: number = 0,
       orientation: Orientation = Orientation.HORIZONTAL,
-      direction: any = null
+      direction: Direction = Direction.LEFT_TO_RIGHT
     ) {
       super(x, y, backgroundColor, fillColor, borderRadius, duration);
       this._width = width;

@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { ButtonConfig } from "./BaseButton";
 import { GraphicsButton } from "./GraphicsButton";
 import { ImageButton } from "./ImageButton";
+import { colorMap } from "../key-value/Color";
 
 type ListButtonConfig = {
   scene: Phaser.Scene;
@@ -131,7 +132,7 @@ export class ListButton extends Phaser.GameObjects.Container {
             0
         );
                 
-        this.border.setStrokeStyle(2, 0xff0000);
+        this.border.setStrokeStyle(2, parseInt(colorMap.orange));
         this.border.setOrigin(0,0)
   
     this.sendToBack(this.border);

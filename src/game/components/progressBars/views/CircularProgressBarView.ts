@@ -1,57 +1,52 @@
 import Phaser from "phaser";
 import { CircularProgressBarModelView } from "../models/CircularProgressBarModelView";
+import { BaseProgressBarModel } from "../models/BaseProgressBarModel";
 
 export class CircularProgressBarView extends Phaser.GameObjects.Container {
   private modelView: CircularProgressBarModelView;
+  private model: BaseProgressBarModel;
   private backgroundCircle: Phaser.GameObjects.Graphics;
   private fillCircle: Phaser.GameObjects.Graphics;
-  private lineWith: number = 6;
+  private lineWidth: number = 18;
 
-  constructor(scene: Phaser.Scene, modelView: CircularProgressBarModelView) {
+  constructor(scene: Phaser.Scene, model: BaseProgressBarModel, modelView: CircularProgressBarModelView) {
     super(scene, modelView.x, modelView.y);
+    this.model = model;
     this.modelView = modelView;
     this.backgroundCircle = this.scene.add.graphics();
     this.fillCircle = this.scene.add.graphics();
-
+  
+    // Đặt origin bằng cách di chuyển Graphics về tâm
+    this.backgroundCircle.setPosition(this.modelView.radius, this.modelView.radius);
+    this.fillCircle.setPosition(this.modelView.radius,this.modelView.radius);
+  
     this.createProgressBar();
+    this.model.onChange = this.updateFillCircle.bind(this);
+  
     scene.add.existing(this);
   }
+  
 
   private createProgressBar(): void {
-
     this.backgroundCircle.clear();
-    this.backgroundCircle.lineStyle(this.lineWith, 0x808080, 0.5);
+    this.backgroundCircle.lineStyle(this.lineWidth, parseInt(this.modelView.backgroundColor, 16));
     this.backgroundCircle.arc(0, 0, this.modelView.radius, 0, Phaser.Math.PI2, false);
     this.backgroundCircle.strokePath();
     this.add(this.backgroundCircle);
 
     this.fillCircle.clear();
-    this.fillCircle.lineStyle(this.lineWith, parseInt(this.modelView.backgroundColor), 1);
+    this.fillCircle.lineStyle(this.lineWidth, parseInt(this.modelView.fillColor, 16), 1);
     this.add(this.fillCircle);
-  }
-
-  public startProgress(): void {
-    this.modelView.progress = 0;
-    this.scene.tweens.add({
-      targets: this,
-      progress: 1,
-      duration: this.modelView.duration,
-      ease: "Linear",
-      onUpdate: () => this.updateFillCircle(),
-      onComplete: () => console.log("Progress Completed"),
-    });
   }
 
   private updateFillCircle(): void {
     this.fillCircle.clear();
-    
-    this.fillCircle.lineStyle(this.lineWith, parseInt(this.modelView.backgroundColor, 16), 1);
+    this.fillCircle.lineStyle(this.lineWidth, parseInt(this.modelView.fillColor, 16), 1);
 
     const radius = this.modelView.radius;
     const startAngle = Phaser.Math.DegToRad(270);
-    const endAngle = startAngle + Phaser.Math.PI2 * this.modelView.progress;
+    const endAngle = startAngle + Phaser.Math.PI2 * (this.model.percentage / 100);
 
-    // Vẽ vòng cung
     this.fillCircle.beginPath();
     this.fillCircle.arc(0, 0, radius, startAngle, endAngle, false);
     this.fillCircle.strokePath();
@@ -61,12 +56,26 @@ export class CircularProgressBarView extends Phaser.GameObjects.Container {
     const endX = Math.cos(endAngle) * radius;
     const endY = Math.sin(endAngle) * radius;
 
-    this.fillCircle.fillStyle(parseInt(this.modelView.backgroundColor, 16), 1);
-
-    const capRadius = this.lineWith / 2;
-    // Vẽ đầu bo tròn
-    this.fillCircle.fillCircle(startX, startY, capRadius);
-    this.fillCircle.fillCircle(endX, endY, capRadius);
+    this.fillCircle.fillStyle(parseInt(this.modelView.fillColor, 16), 1);
+    if (this.model.percentage > 0) {
+      this.fillCircle.fillCircle(startX, startY, this.lineWidth / 2);
+      this.fillCircle.fillCircle(endX, endY, this.lineWidth / 2);
+    }
+    
   }
 
+  public setProgress(value: number): void {
+    this.model.value = value;
+  }
+
+  public startProgress(): void {
+    this.scene.tweens.add({
+      targets: this.model,
+      value: this.model.max,
+      duration: this.modelView.duration,
+      ease: "Linear",
+      onUpdate: () => this.updateFillCircle(),
+      onComplete: () => console.log("Progress Completed"),
+    });
+  }
 }
