@@ -16,7 +16,6 @@ import { ICheckable } from "./game/maths/components/interfaces/ICheckable";
 import { IComparable } from "./game/maths/components/interfaces/IComparable";
 import { INumberable } from "./game/maths/components/interfaces/INumberable";
 import { Cell } from "./game/maths/systems/Cell";
-import { Grid } from "matter";
 import { ArrayUtils } from "./game/maths/utils/ArrrayUtils";
 import { DepthUtil } from "./game/maths/utils/DepthUtil";
 import { GridSystem } from "./game/maths/systems/GridSystem";
@@ -81,7 +80,7 @@ export type { IFactory };
 // helpers
 export { ExpressionHelper, NumberHelper, TextStyleHelper, VSCH }
 // systems
-export { Cell, Grid, GridSystem}
+export { Cell, GridSystem}
 // utils
 export { ArrayUtils, DepthUtil}
 
