@@ -8,21 +8,21 @@ export default class NotificationPopup extends BasePopup {
     }
 
     create() {
-        const popupWidth = 500;
-        const popupHeight = 400;
+    //     const popupWidth = 500;
+    //     const popupHeight = 400;
 
-        const titleText = "Game Over";
-        const message = `Your final score is: ${this.finalScore}`;
+    //     const titleText = "Game Over";
+    //     const message = `Your final score is: ${this.finalScore}`;
 
-        const buttonsConfig = {
-            "OK": () => this.closePopup(),
-            "Exit": () =>this.exit()
-        };
+    //     const buttonsConfig = {
+    //         "OK": () => this.closePopup(),
+    //         "Exit": () =>this.exit()
+    //     };
 
-        this.createPopup(popupWidth, popupHeight, titleText, message, buttonsConfig);
-    }
+    //     this.createPopup(popupWidth, popupHeight, titleText, message);
+    // }
     
-    exit(){
-        console.log("thoát game")
+    // exit(){
+    //     console.log("thoát game")
     }
 }
