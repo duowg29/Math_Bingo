@@ -23,7 +23,7 @@ export class ListButton extends Phaser.GameObjects.Container {
     super(config.scene, config.x, config.y);
     config.scene.add.existing(this);
     this.createButtons(config);
-    this.updateContainerSize();
+    // this.updateContainerSize();
 
   }
 
@@ -124,8 +124,8 @@ export class ListButton extends Phaser.GameObjects.Container {
 
   private updateContainerSize() {
         this.border = this.scene.add.rectangle(
-            this.x, 
-            this.y, 
+            0,
+            0,
             this.containerWidth,
             this.containerHeight,
             0x000000,
@@ -133,7 +133,8 @@ export class ListButton extends Phaser.GameObjects.Container {
         );
                 
         this.border.setStrokeStyle(2, parseInt(colorMap.orange));
-        this.border.setOrigin(0,0)
+        this.border.setOrigin(0,0);
+        this.add(this.border)
   
     this.sendToBack(this.border);
   }

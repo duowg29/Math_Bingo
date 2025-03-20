@@ -112,6 +112,8 @@ export default class TestScene extends Phaser.Scene {
       align: "around" 
     });
 
+
+
     const progressBarModel = new BaseProgressBarModel(0, 100, 0);
 
     this.progressBar = new LinearProgressBarView(
@@ -130,7 +132,7 @@ export default class TestScene extends Phaser.Scene {
     );  
 
     this.progressBar.startProgress();
-    this.progressBar.createThumb();
+    // this.progressBar.createThumb();
 
 
     const progressBarModel1 = new BaseProgressBarModel(0, 100, 0);

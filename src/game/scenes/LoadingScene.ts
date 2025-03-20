@@ -65,7 +65,7 @@ export default class LoadingScene extends Phaser.Scene {
             infinitive1,
              diamond]);
 
-        const duration = 150;
+        const duration = 100;
         
         this.tweens.add({
             targets: [addition], 
@@ -175,7 +175,7 @@ export default class LoadingScene extends Phaser.Scene {
             color: 'white',
         }).setOrigin(0.5);
 
-        const loadingDuration = 5000;
+        const loadingDuration = 3000;
 
         this.tweens.addCounter({
             from: 0,
@@ -187,7 +187,7 @@ export default class LoadingScene extends Phaser.Scene {
                 loadingText.setText(`${value}%`); 
             },
             onComplete: () => {
-                // this.scene.start('GamePlayScene'); 
+                this.scene.start('GamePlayScene'); 
                 // console.log('next GamePlayScene');
                 // this.scene.start('PopUp')
             },

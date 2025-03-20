@@ -9,6 +9,8 @@ import SettingPopup from "./components/popups/SettingPopup";
 import EndGamePopup from "./components/popups/EndGamePopup";
 import NotificationPopup from "./components/popups/NotificationPopup";
 import TestScene from "./scenes/TestScene";
+import LoadingSceneV2 from "./scenes/LoadingSceneV2";
+import LoadingSceneV3 from "./scenes/LoadingSceneV3";
 
 
 
@@ -46,6 +48,8 @@ const config: Phaser.Types.Core.GameConfig = {
         Boot,
         MainGame,
         LoadingScene,
+        LoadingSceneV2,
+        LoadingSceneV3,
         ConfirmDialog,
         SettingPopup,
         EndGamePopup,

@@ -48,6 +48,24 @@ import { ProblemSequenceModel } from "./game/maths/components/models/ProblemSequ
 import { SequenceModel } from "./game/maths/components/models/SequenceModel";
 import { TextModel } from "./game/maths/components/models/TextModel";
 import yoTechSDK, { SDKMessage } from "./game/utils/yoTechSDK";
+import { BaseButton } from "./game/components/buttons/BaseButton";
+import { GraphicsButton } from "./game/components/buttons/GraphicsButton";
+import { ImageButton } from "./game/components/buttons/ImageButton";
+import { ListButton } from "./game/components/buttons/ListButton";
+import { colorMap } from "./game/components/key-value/Color";
+import { Direction } from "./game/components/progressBars/enums/Direction";
+import { Orientation } from "./game/components/progressBars/enums/Orientation";
+import { BaseProgressBarModel } from "./game/components/progressBars/models/BaseProgressBarModel";
+import { BaseProgressBarModelView } from "./game/components/progressBars/models/BaseProgressBarModelView";
+import { CircularProgressBarModelView } from "./game/components/progressBars/models/CircularProgressBarModelView";
+import { LinearProgressBarModelView } from "./game/components/progressBars/models/LinearProgressBarModelView";
+import { CircularProgressBarView } from "./game/components/progressBars/views/CircularProgressBarView";
+import { LinearProgressBarView } from "./game/components/progressBars/views/LinearProgressBarView";
+import BasePopup from "./game/components/popups/BasePopup";
+import ConfirmDialog from "./game/components/popups/ConfirmDialog";
+import EndGamePopup from "./game/components/popups/EndGamePopup";
+import NotificationPopup from "./game/components/popups/NotificationPopup";
+import SettingPopup from "./game/components/popups/SettingPopup";
 
 
 export { BaseController, BaseDTO, BaseService, LoadingScene, BaseView };
@@ -68,5 +86,18 @@ export { Cell, Grid, GridSystem}
 export { ArrayUtils, DepthUtil}
 
 export type { SDKMessage }
+// button
+export { BaseButton, GraphicsButton, ImageButton, ListButton }
+// map-color
+export { colorMap}
+// enum
+export { Direction, Orientation}
+// models progress_bar
+export { BaseProgressBarModel, BaseProgressBarModelView, CircularProgressBarModelView, LinearProgressBarModelView }
+// views progress_bar
+export { CircularProgressBarView, LinearProgressBarView}
+
+export { BasePopup, ConfirmDialog, EndGamePopup, NotificationPopup, SettingPopup}
+
 
 export {yoTechSDK}

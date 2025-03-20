@@ -17,18 +17,10 @@ export default class SettingPopup extends BasePopup {
         const width = 500;
         const height = 400;
 
-        this.createPopup(width, height, "Cài đặt", "Cài đặt âm thanh", {
-            "Tắt": () => this.off(),
-            "Bật": () => this.on()
-        });
+        this.createPopup(width, height, "Cài đặt", "Cài đặt âm thanh");
 
         this.createProgressBar();
 
-
-
-
-
- 
 
     }
 

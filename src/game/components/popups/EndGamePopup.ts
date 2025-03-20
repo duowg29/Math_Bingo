@@ -8,14 +8,17 @@ export default class EndGamePopup extends BasePopup {
         this.finalScore || 0; 
     }
 
+    preload(){
+        this.load.image('button_cancel', 'assets/images/MCT_button_cancel');
+
+    }
+
     create() {
         const width = 500;
         const height = 400;
 
-        this.createPopup(width, height, "Game Over", "", {
-            // "Có": () => this.exitGame()
-        });
-
+        this.createPopup(width, height, "Game Over", "?")
+ 
         const scoreText = this.add.text(0, -50, `Điểm số: ${this.finalScore}`, {
             fontSize: "30px",
             color: "#000000"
@@ -26,8 +29,6 @@ export default class EndGamePopup extends BasePopup {
         const exitButton = this.createButton(0, 120, "Thoát", 0xFF0000, () => this.exitGame());
 
         this.popupContainer.add([scoreText, restartButton, exitButton]);
-
-
 
     }
 
