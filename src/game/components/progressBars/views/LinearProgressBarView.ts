@@ -96,8 +96,6 @@ export class LinearProgressBarView extends Phaser.GameObjects.Container {
       }
     });
   }
-  
-  
 
   private updateProgressBar(): void {
     const progressWidth = (this.model.percentage / 100) * this.modelView.width;
