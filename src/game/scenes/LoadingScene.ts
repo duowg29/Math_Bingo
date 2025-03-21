@@ -3,6 +3,8 @@ export default class LoadingScene extends Phaser.Scene {
     private containerHeight: number = 1200;
     private duration: number = 35;
     private mainEffectDuration: number = 800;
+    private scaleFactor: number; 
+
 
     
 
@@ -22,19 +24,47 @@ export default class LoadingScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(0, 0, 'background').setOrigin(0, 0).setDisplaySize(this.scale.width, this.scale.height);
-        const container = this.add.container(this.scale.width / 2, this.scale.height / 2).setScale(1.5);
-        const diamond = this.add.image(0,-100,'diamond').setDisplaySize(95,34).setOrigin(0.5,0.5).setScale(0);
-        const addition = this.add.image(23,0,'addition').setDisplaySize(18,18).setOrigin(0.5,0.5).setScale(0);
-        const subtraction = this.add.image(-23,0,'subtraction').setDisplaySize(20,7).setOrigin(0.5,0.5).setScale(0);
-        const multiplication = this.add.image(0, 0, 'infinitive')
-            .setOrigin(0.5, 0.5)
-            .setDisplaySize(19, 30)
-            .setScale(0)
-            .setCrop(41,0,18,50);
 
-        const division1 = this.add.image(2,13,'division').setDisplaySize(7,7).setOrigin(0.5,0.5).setScale(0);
-        const division2 = this.add.image(2,-13,'division').setDisplaySize(7,7).setOrigin(0.5,0.5).setScale(0);
+        this.scaleFactor = Math.min(this.scale.width / this.containerWidth, this.scale.height / this.containerHeight);
+
+        // Cập nhật kích thước nền theo màn hình
+        this.add.image(0, 0, 'background')
+        .setOrigin(0, 0)
+        .setDisplaySize(this.scale.width, this.scale.height);
+            
+        const container = this.add.container(this.scale.width / 2, this.scale.height / 2).setScale(this.scaleFactor * 1.5);
+
+
+        const diamond = this.add.image(0, -100 * this.scaleFactor, 'diamond')
+        .setDisplaySize(95 * this.scaleFactor, 34 * this.scaleFactor)
+        .setOrigin(0.5, 0.5)
+        .setScale(0);
+        
+        const addition = this.add.image(23 * this.scaleFactor, 0, 'addition')
+        .setDisplaySize(18 * this.scaleFactor, 18 * this.scaleFactor)
+        .setOrigin(0.5, 0.5)
+        .setScale(0);
+
+        const subtraction = this.add.image(-23 * this.scaleFactor, 0, 'subtraction')
+            .setDisplaySize(20 * this.scaleFactor, 7 * this.scaleFactor)
+            .setOrigin(0.5, 0.5)
+            .setScale(0);
+                    
+        const multiplication = this.add.image(0, 0, 'infinitive')
+        .setOrigin(0.5, 0.5)
+        .setDisplaySize(19 * this.scaleFactor, 30 * this.scaleFactor)
+        .setScale(0)
+        .setCrop(41, 0, 18, 50);
+
+        const division1 = this.add.image(2 * this.scaleFactor, 13 * this.scaleFactor, 'division')
+        .setDisplaySize(7 * this.scaleFactor, 7 * this.scaleFactor)
+        .setOrigin(0.5, 0.5)
+        .setScale(0);
+
+        const division2 = this.add.image(2 * this.scaleFactor, -13 * this.scaleFactor, 'division')
+            .setDisplaySize(7 * this.scaleFactor, 7 * this.scaleFactor)
+            .setOrigin(0.5, 0.5)
+            .setScale(0);
 
         const fullWidth = 95;  
         const fullHeight = 47; 
@@ -62,10 +92,10 @@ export default class LoadingScene extends Phaser.Scene {
             }
         });
 
-        const text = this.add.text(0, 50, 'EM HỌC TOÁN', {
-        fontSize: '20px Arial',
-        fontStyle: 'bold',
-        color: 'white',
+        const text = this.add.text(0, 50 * this.scaleFactor, 'EM HỌC TOÁN', {
+            fontSize: `${20 * this.scaleFactor}px Arial`,
+            fontStyle: 'bold',
+            color: 'white',
         }).setOrigin(0.5).setResolution(2).setAlpha(0);
         
         container.add([text, addition, subtraction, division1, division2, multiplication, 
