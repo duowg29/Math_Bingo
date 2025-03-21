@@ -22,8 +22,8 @@ export default class LoadingScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(0, 0, 'background').setOrigin(0, 0).setDisplaySize(this.containerWidth, this.containerHeight);
-        const container = this.add.container(this.containerWidth / 2, this.containerHeight / 2).setScale(1.5);
+        this.add.image(0, 0, 'background').setOrigin(0, 0).setDisplaySize(this.scale.width, this.scale.height);
+        const container = this.add.container(this.scale.width / 2, this.scale.height / 2).setScale(1.5);
         const diamond = this.add.image(0,-100,'diamond').setDisplaySize(95,34).setOrigin(0.5,0.5).setScale(0);
         const addition = this.add.image(23,0,'addition').setDisplaySize(18,18).setOrigin(0.5,0.5).setScale(0);
         const subtraction = this.add.image(-23,0,'subtraction').setDisplaySize(20,7).setOrigin(0.5,0.5).setScale(0);
@@ -148,7 +148,7 @@ export default class LoadingScene extends Phaser.Scene {
     });
 
 
-        this.add.text(this.containerWidth / 2, this.containerHeight / 2 + 430, 'Đang tải...', {
+        this.add.text(this.scale.width / 2, this.scale.height / 2 + 430, 'Đang tải...', {
             fontSize: '25px Arial',
             fontStyle: 'bold',
             color: 'white',
@@ -158,8 +158,8 @@ export default class LoadingScene extends Phaser.Scene {
         .setAlpha(0.5);
 
         const loadingBarWidth = 400; 
-        const loadingBarX = this.containerWidth / 2 - loadingBarWidth / 2; 
-        const loadingBarY = this.containerHeight / 2 + 400;
+        const loadingBarX = this.scale.width / 2 - loadingBarWidth / 2; 
+        const loadingBarY = this.scale.height / 2 + 400;
 
         const loadingBarBackground = this.add.rectangle(
             loadingBarX,
