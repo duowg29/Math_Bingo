@@ -5,9 +5,6 @@ export default class LoadingScene extends Phaser.Scene {
     private mainEffectDuration: number = 800;
     private scaleFactor: number; 
 
-
-    
-
     constructor() {
         super('LoadingScene');
     }
@@ -27,7 +24,6 @@ export default class LoadingScene extends Phaser.Scene {
 
         this.scaleFactor = Math.min(this.scale.width / this.containerWidth, this.scale.height / this.containerHeight);
 
-        // Cập nhật kích thước nền theo màn hình
         this.add.image(0, 0, 'background')
         .setOrigin(0, 0)
         .setDisplaySize(this.scale.width, this.scale.height);
@@ -35,34 +31,34 @@ export default class LoadingScene extends Phaser.Scene {
         const container = this.add.container(this.scale.width / 2, this.scale.height / 2).setScale(this.scaleFactor * 1.5);
 
 
-        const diamond = this.add.image(0, -100 * this.scaleFactor, 'diamond')
-        .setDisplaySize(95 * this.scaleFactor, 34 * this.scaleFactor)
+        const diamond = this.add.image(0, -100 , 'diamond')
+        .setDisplaySize(95, 34 )
         .setOrigin(0.5, 0.5)
         .setScale(0);
         
-        const addition = this.add.image(23 * this.scaleFactor, 0, 'addition')
-        .setDisplaySize(18 * this.scaleFactor, 18 * this.scaleFactor)
+        const addition = this.add.image(23 , 0, 'addition')
+        .setDisplaySize(18 , 18 )
         .setOrigin(0.5, 0.5)
         .setScale(0);
 
-        const subtraction = this.add.image(-23 * this.scaleFactor, 0, 'subtraction')
-            .setDisplaySize(20 * this.scaleFactor, 7 * this.scaleFactor)
+        const subtraction = this.add.image(-23 , 0, 'subtraction')
+            .setDisplaySize(20 , 7 )
             .setOrigin(0.5, 0.5)
             .setScale(0);
                     
         const multiplication = this.add.image(0, 0, 'infinitive')
         .setOrigin(0.5, 0.5)
-        .setDisplaySize(19 * this.scaleFactor, 30 * this.scaleFactor)
+        .setDisplaySize(19 , 30 )
         .setScale(0)
         .setCrop(41, 0, 18, 50);
 
-        const division1 = this.add.image(2 * this.scaleFactor, 13 * this.scaleFactor, 'division')
-        .setDisplaySize(7 * this.scaleFactor, 7 * this.scaleFactor)
+        const division1 = this.add.image(2, 13, 'division')
+        .setDisplaySize(7 , 7 )
         .setOrigin(0.5, 0.5)
         .setScale(0);
 
-        const division2 = this.add.image(2 * this.scaleFactor, -13 * this.scaleFactor, 'division')
-            .setDisplaySize(7 * this.scaleFactor, 7 * this.scaleFactor)
+        const division2 = this.add.image(2 , -13 , 'division')
+            .setDisplaySize(7 , 7 )
             .setOrigin(0.5, 0.5)
             .setScale(0);
 
@@ -92,8 +88,8 @@ export default class LoadingScene extends Phaser.Scene {
             }
         });
 
-        const text = this.add.text(0, 50 * this.scaleFactor, 'EM HỌC TOÁN', {
-            fontSize: `${20 * this.scaleFactor}px Arial`,
+        const text = this.add.text(0, 50, 'EM HỌC TOÁN', {
+            fontSize: `20px Arial`,
             fontStyle: 'bold',
             color: 'white',
         }).setOrigin(0.5).setResolution(2).setAlpha(0);
@@ -160,25 +156,24 @@ export default class LoadingScene extends Phaser.Scene {
                                                                 yoyo: true, 
                                                                 repeat: -1,
                                                                 ease: 'Sine.easeInOut',
-                                                            });
-                                                        }
-                                                    });
+                                                                });
+                                                            }
+                                                        });
 
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    });
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
 
-
-        this.add.text(this.scale.width / 2, this.scale.height / 2 + 430, 'Đang tải...', {
+        const textLoad = this.add.text(0,20, 'Đang tải...', {
             fontSize: '25px Arial',
             fontStyle: 'bold',
             color: 'white',
@@ -187,40 +182,36 @@ export default class LoadingScene extends Phaser.Scene {
         .setResolution(2)
         .setAlpha(0.5);
 
-        const loadingBarWidth = 400; 
-        const loadingBarX = this.scale.width / 2 - loadingBarWidth / 2; 
-        const loadingBarY = this.scale.height / 2 + 400;
+        const loadingContainer = this.add.container(this.scale.width / 2, this.scale.height * 5 / 6).setScale(this.scaleFactor * 1.5);
 
+        const loadingBarWidth = 400;
         const loadingBarBackground = this.add.rectangle(
-            loadingBarX,
-            loadingBarY,
-            loadingBarWidth, 
+            -loadingBarWidth / 2,
+            0,
+            loadingBarWidth,
             8,
             0xFFFFFF
         ).setOrigin(0, 0.5).setAlpha(0.5);
-
+        
         const loadingBarFill = this.add.rectangle(
-            loadingBarX,
-            loadingBarY,
-            0, 
+            -loadingBarWidth / 2,
+            0,
+            0,
             8,
             0xFFFFFF
         ).setOrigin(0, 0.5);
-
-        const loadingText = this.add.text(loadingBarX + loadingBarWidth / 2, loadingBarY - 20, '0%', {
+        
+        const loadingText = this.add.text(0, -20, '0%', {
             fontSize: '20px Arial',
             color: 'white',
         }).setOrigin(0.5);
-
+        
+        loadingContainer.add([loadingBarBackground, loadingBarFill, loadingText,textLoad]);
 
         const totalAnimationDuration = 
         this.duration * 4 + 
         this.mainEffectDuration * 3 + 
         this.mainEffectDuration * 2;
-
-        // 4 * 50 + 800 * 4 = 200 + 2400
-
-        // const loadingDuration = 3000;
 
         this.tweens.addCounter({
             from: 0,
@@ -232,9 +223,9 @@ export default class LoadingScene extends Phaser.Scene {
                 loadingText.setText(`${value}%`); 
             },
             onComplete: () => {
-                this.scene.start('GamePlayScene');
+                
             },
-        });
+        })
     }
 
     update() {}

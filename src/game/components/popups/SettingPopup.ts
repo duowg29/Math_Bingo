@@ -70,11 +70,11 @@ export default class SettingPopup extends BasePopup {
         this.progressValue = Phaser.Math.Clamp(this.progressValue + amount, 0, 100);
         this.drawProgressBar();
     }
-    
 
     off() {
         console.log("Tắt âm thanh");
     }
+    
     on(){
         console.log("bật âm thanh")
     }

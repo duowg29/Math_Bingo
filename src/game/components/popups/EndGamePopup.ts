@@ -9,7 +9,7 @@ export default class EndGamePopup extends BasePopup {
     }
 
     preload(){
-        this.load.image('button_cancel', 'assets/images/MCT_button_cancel');
+        this.load.image('button_cancel', 'assets/images/MCT_button_cancel.png');
 
     }
 
@@ -17,18 +17,19 @@ export default class EndGamePopup extends BasePopup {
         const width = 500;
         const height = 400;
 
-        this.createPopup(width, height, "Game Over", "?")
+        this.createPopup(width, height, "Game Over", "Điểm số")
  
-        const scoreText = this.add.text(0, -50, `Điểm số: ${this.finalScore}`, {
-            fontSize: "30px",
-            color: "#000000"
-        }).setOrigin(0.5);
+        // const scoreText = this.add.text(0, -50, `Điểm số: ${this.finalScore}`, {
+        //     fontSize: "30px",
+        //     fontStyle: "bold",
+        //     color: "#000000"
+        // }).setOrigin(0.5);
 
         const restartButton = this.createButton(0, 50, "Chơi lại", 0x007BFF, () => this.restartGame());
 
         const exitButton = this.createButton(0, 120, "Thoát", 0xFF0000, () => this.exitGame());
 
-        this.popupContainer.add([scoreText, restartButton, exitButton]);
+        this.popupContainer.add([ restartButton, exitButton]);
 
     }
 

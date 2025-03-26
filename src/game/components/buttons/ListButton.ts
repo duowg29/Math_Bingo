@@ -3,25 +3,34 @@ import { ButtonConfig } from "./BaseButton";
 import { GraphicsButton } from "./GraphicsButton";
 import { ImageButton } from "./ImageButton";
 import { colorMap } from "../key-value/Color";
+import { Orientation } from "../enums/Orientation";
+import { Align } from "@/game/components/enums/Align";
+
+
+
 
 type ListButtonConfig = {
   scene: Phaser.Scene;
   x: number;
   y: number;
+  containerWidth: number;
+  containerHeight: number;
   buttonConfigs: ButtonConfig[];
-  orientation?: "horizontal" | "vertical";
-  align: "between" | "around" | "evenly"
+  orientation?: Orientation;
+  align: Align; 
 };
 
 export class ListButton extends Phaser.GameObjects.Container {
   private border: Phaser.GameObjects.Rectangle;
   private buttons: Phaser.GameObjects.Container[] = [];
-  private containerWidth: number = 1000;
-  private containerHeight: number = 200;
+  private containerWidth: number = 200;
+  private containerHeight: number = 300;
 
   constructor(config: ListButtonConfig) {
     super(config.scene, config.x, config.y);
     config.scene.add.existing(this);
+    this.containerWidth = config.containerWidth;
+    this.containerHeight = config.containerHeight;
     this.createButtons(config);
     // this.updateContainerSize();
 
@@ -35,14 +44,14 @@ export class ListButton extends Phaser.GameObjects.Container {
     let leftMargin = 0;
     
     switch (align) {
-        case 'between':
+        case Align.BETWEEN:
             spaceBetween = n > 1 ? remainingSpace / (n - 1) : 0;
             break;
-        case 'around':
+        case Align.AROUND:
             spaceBetween = n > 0 ? remainingSpace / n : 0;
             leftMargin = spaceBetween / 2;
             break;
-        case 'evenly':
+        case  Align.EVENLY:
             spaceBetween = n > 0 ? remainingSpace / (n + 1) : 0;
             leftMargin = spaceBetween;
             break;
@@ -72,13 +81,13 @@ export class ListButton extends Phaser.GameObjects.Container {
     let spaceBetween = 0;
   
     switch (align) {
-        case 'between':
+        case Align.BETWEEN:
             spaceBetween = n > 1 ? remainingSpace / (n - 1) : 0;
             break;
-        case 'around':
+        case  Align.AROUND:
             spaceBetween = n > 0 ? remainingSpace / n : 0;
             break;
-        case 'evenly':
+        case Align.EVENLY:
             spaceBetween = n > 0 ? remainingSpace / (n + 1) : 0;
             break;
     }
@@ -100,43 +109,48 @@ export class ListButton extends Phaser.GameObjects.Container {
   }
 
 
-  private createButtons(config: ListButtonConfig) {
-    if (config.orientation === "vertical") {
-        config.buttonConfigs = this.calculateVerticalSpacing(config.buttonConfigs, config.align);
-    } else {
-        config.buttonConfigs = this.calculateHorizontalSpacing(config.buttonConfigs, config.align);
-    }
-
-    config.buttonConfigs.forEach((btnConfig) => {
-        let button: Phaser.GameObjects.Container;
-        if (btnConfig.imageKey) {
-            button = new ImageButton({ ...btnConfig, scene: config.scene });
+    private createButtons(config: ListButtonConfig) {
+        if (config.orientation === Orientation.VERTICAL) {
+            config.buttonConfigs = this.calculateVerticalSpacing(config.buttonConfigs, config.align);
         } else {
-            button = new GraphicsButton({ ...btnConfig, scene: config.scene });
+            config.buttonConfigs = this.calculateHorizontalSpacing(config.buttonConfigs, config.align);
         }
 
-        this.buttons.push(button);
-        this.add(button);
+        config.buttonConfigs.forEach((btnConfig) => {
+            let button: Phaser.GameObjects.Container;
+            if (btnConfig.imageKey) {
+                button = new ImageButton({ ...btnConfig, scene: config.scene });
+            } else {
+                button = new GraphicsButton({ ...btnConfig, scene: config.scene });
+            }
+
+            // Điều chỉnh vị trí button để phù hợp với setOrigin(0.5, 0.5)
+            button.x -= this.containerWidth / 2;
+            button.y -= this.containerHeight / 2;
+
+            this.buttons.push(button);
+            this.add(button);
+        });
 
         this.updateContainerSize();
-    });
-  }
+    }
 
-  private updateContainerSize() {
+    private updateContainerSize() {
         this.border = this.scene.add.rectangle(
-            0,
-            0,
+            0, 0,
             this.containerWidth,
             this.containerHeight,
             0x000000,
             0
         );
-                
+
         this.border.setStrokeStyle(2, parseInt(colorMap.orange));
-        this.border.setOrigin(0,0);
-        this.add(this.border)
-  
-    this.sendToBack(this.border);
-  }
+        
+        // Đặt border vào trung tâm container
+        this.border.setOrigin(0.5, 0.5);
+        
+        this.add(this.border);
+        this.sendToBack(this.border);
+    }
 
 }

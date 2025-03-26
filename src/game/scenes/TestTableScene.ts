@@ -5,9 +5,9 @@ import { Table } from "../components/table/Table";
 //────────────────────────────
 // Scene: GamePlayScene
 //────────────────────────────
-export class GamePlayScene extends Phaser.Scene {
+export class GamePlayScene1 extends Phaser.Scene {
   constructor() {
-    super({ key: "GamePlayScene" });
+    super({ key: "GamePlayScene1" });
   }
 
   create() {

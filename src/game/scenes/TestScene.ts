@@ -1,12 +1,12 @@
 import { ButtonConfig } from "../components/buttons/BaseButton";
-import { ListButton } from "../components/buttons/ListButton";
 import { BaseProgressBarModel } from "../components/progressBars/models/BaseProgressBarModel";
 import { CircularProgressBarModelView } from "../components/progressBars/models/CircularProgressBarModelView";
 import { LinearProgressBarModelView, Orientation } from "../components/progressBars/models/LinearProgressBarModelView";
 import { CircularProgressBarView } from "../components/progressBars/views/CircularProgressBarView";
 import { LinearProgressBarView } from "../components/progressBars/views/LinearProgressBarView";
 import { colorMap } from "../components/key-value/Color"
-
+import { Align } from "../components/enums/Align";
+import { ListButton } from "../components/buttons/ListButton";
 
 export default class TestScene extends Phaser.Scene {
   private progressBar: any;
@@ -105,11 +105,13 @@ export default class TestScene extends Phaser.Scene {
 
     const listButton = new ListButton({
       scene: this,
-      x: 400,
-      y: 100,
+      x: 900,
+      y: 150,
       buttonConfigs: buttonConfigs, 
-      orientation: "horizontal", 
-      align: "around" 
+      containerWidth: 1000,
+      containerHeight: 200,
+      orientation: Orientation.HORIZONTAL , 
+      align: Align.AROUND 
     });
 
 
@@ -131,9 +133,8 @@ export default class TestScene extends Phaser.Scene {
       )
     );  
 
-    this.progressBar.startProgress();
-    // this.progressBar.createThumb();
-
+    // this.progressBar.startProgress();
+    this.progressBar.createThumb();
 
     const progressBarModel1 = new BaseProgressBarModel(0, 100, 0);
 
@@ -151,8 +152,117 @@ export default class TestScene extends Phaser.Scene {
         80                
       )
     );
+
+
+    // const loadingContainer = this.add.container(0, 0);
+    // const loadingContainer2 = this.add.container(0, 0);
     
-  }
+    const widthButton = 300;
+    const heightButton = 50;
+    const padding = 10;
+    const scale = 20;
+    const minAlpha = 0.5;
+    const radius = 20;
+    const duration = 300;
+    
+    const createButton = (x: number, y: number, backgroundColor: string, fillColor: string, isCorrect: boolean
+    ) => {
+      const container = this.add.container(x, y);
+    
+      const loadingBarBackground = this.add.graphics();
+      loadingBarBackground.fillStyle(parseInt(backgroundColor), 1);
+      loadingBarBackground.fillRoundedRect(
+        -(widthButton + padding) / 2,
+        -(heightButton + padding) / 2,
+        widthButton + padding,
+        heightButton + padding,
+        radius
+      );
+    
+      const loadingBarFill = this.add.graphics();
+      loadingBarFill.fillStyle(parseInt(fillColor), 1);
+      loadingBarFill.fillRoundedRect(
+        -widthButton / 2,
+        -heightButton / 2,
+        widthButton,
+        heightButton,
+        radius - 5
+      );
+    
+      container.add([loadingBarBackground, loadingBarFill])
+        .setSize(widthButton + padding, heightButton + padding)
+        .setInteractive();
+    
+      container.on("pointerdown", () => {
+        if (isCorrect) {
 
+        this.tweens.add({
+          targets: loadingBarBackground,
+          scaleX: (widthButton + padding + scale) / (widthButton + padding),
+          scaleY: (heightButton + padding + scale) / (heightButton + padding),
+          duration: duration,
+          yoyo: true,
+          ease: "Sine.easeInOut",
+          onUpdate: (tween, target) => {
+            const scaleFactor = (target.scaleX + target.scaleY) / 2;
+            target.setAlpha(Math.max(minAlpha, 1 - (scaleFactor - 1) * 2));
+          }
+        });
 
+        this.tweens.add({
+          targets: loadingBarFill,
+          duration: duration,
+          yoyo: true,
+          onComplete: () => {
+            loadingBarFill.clear();
+            loadingBarFill.fillStyle(parseInt(colorMap.green), 1);
+            loadingBarFill.fillRoundedRect(
+              -widthButton / 2,
+              -heightButton / 2,
+              widthButton,
+              heightButton,
+              radius - 5
+            );
+          }
+        });
+
+      }else{
+          this.tweens.add({
+            targets: container,
+            x: x + 10,
+            duration: 50,
+            yoyo: true,
+            repeat: 3,
+            ease: "Sine.easeInOut",
+          });
+    
+          this.tweens.add({
+            targets: loadingBarFill,
+            duration: duration,
+            yoyo: true,
+            onComplete: () => {
+              loadingBarFill.clear();
+              loadingBarFill.fillStyle(parseInt(colorMap.red), 1);
+              loadingBarFill.fillRoundedRect(
+                -widthButton / 2,
+                -heightButton / 2,
+                widthButton,
+                heightButton,
+                radius - 5
+              );
+            }
+          });
+      }
+      });
+      return container;
+    };
+    
+    const button1 = createButton(0, 0, colorMap.grayLight, colorMap.blue, true);
+    
+    const button2 = createButton(700, 0, colorMap.grayLight, colorMap.blue, false);
+    
+    const mainContainer = this.add.container(550, 350);
+
+    mainContainer.add([button1, button2]);
+}
 }

@@ -16,8 +16,6 @@ export default class LoadingSceneV2 extends Phaser.Scene {
         super("LoadingSceneV3");
     }
 
-
-
     create() {
         
         this.line = this.add.graphics({ lineStyle: { width: 4, color: parseInt(colorMap.red) } });
@@ -45,8 +43,5 @@ export default class LoadingSceneV2 extends Phaser.Scene {
 
             this.circles.push(container);
         });
-    }
-
-   
-    
+    } 
 }

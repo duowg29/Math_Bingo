@@ -1,6 +1,7 @@
 export const colorMap: { [key: string]: string } = {
     "grayDark": "0x444444", // Xám đậm
     "grayLight": "0xD3D3D3", // Xám nhạt
+    "green": "0x008000", // màu xanh lá
     "greenBright": "0x00ff00", // Xanh lá sáng
     "greenDark": "0x006400", // Xanh lá đậm
     "red": "0xff0000", // Đỏ

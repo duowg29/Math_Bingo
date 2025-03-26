@@ -40,7 +40,7 @@ export class BaseButton extends Phaser.GameObjects.Container {
         fontSize: (config.fontSize || 20) + "px",
         color: this.defaultTextColor,
         padding: { left: config.padding || 10, right: config.padding || 10 },
-      }).setOrigin(0.5);
+      }).setOrigin(0.5).setResolution(2);
       this.add(this.buttonText);
     }
 

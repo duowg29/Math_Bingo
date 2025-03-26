@@ -1,5 +1,5 @@
-import { Direction } from "../enums/Direction";
-import { Orientation } from "../enums/Orientation";
+import { Direction } from "../../enums/Direction";
+import { Orientation } from "../../enums/Orientation";
 import { BaseProgressBarModelView } from "./BaseProgressBarModelView";
 
 export class LinearProgressBarModelView extends BaseProgressBarModelView {

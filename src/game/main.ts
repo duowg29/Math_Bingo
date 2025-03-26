@@ -11,6 +11,8 @@ import NotificationPopup from "./components/popups/NotificationPopup";
 import TestScene from "./scenes/TestScene";
 import LoadingSceneV2 from "./scenes/LoadingSceneV2";
 import LoadingSceneV3 from "./scenes/LoadingSceneV3";
+import { GamePlayScene1 } from "./scenes/TestTableScene";
+import GamePlayScene from "./scenes/GamePlayScene";
 
 
 
@@ -19,7 +21,9 @@ import LoadingSceneV3 from "./scenes/LoadingSceneV3";
 const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
     width: 1920,
-    height: 1200,
+    height: 1080,
+    // width: 700,
+    // height: 600,
     parent: 'phaser-example',
     backgroundColor: '#FFFFFF',
     scale: {
@@ -28,6 +32,8 @@ const config: Phaser.Types.Core.GameConfig = {
         max: {
             width: 1920, 
             height: 1080, 
+            // width: 700,
+            // height: 600,
         },
         min: {
             width: 480, 
@@ -48,10 +54,11 @@ const config: Phaser.Types.Core.GameConfig = {
         Boot,
         MainGame,
         LoadingScene,
-        LoadingSceneV2,
+        GamePlayScene,
         LoadingSceneV3,
         ConfirmDialog,
         SettingPopup,
+        GamePlayScene1,
         EndGamePopup,
         NotificationPopup,
         TestScene

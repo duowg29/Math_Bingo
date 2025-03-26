@@ -11,7 +11,6 @@ export class LinearProgressBarView extends Phaser.GameObjects.Container {
   private thumbBorder: Phaser.GameObjects.Graphics;
   private thumbInner: Phaser.GameObjects.Graphics;
 
-
   constructor(scene: Phaser.Scene, model: BaseProgressBarModel, modelView: LinearProgressBarModelView) {
     super(scene, modelView.x, modelView.y);
     this.model = model;
@@ -36,7 +35,7 @@ export class LinearProgressBarView extends Phaser.GameObjects.Container {
 
     this.fillBar = this.scene.add.graphics();
     this.fillBar.fillStyle(parseInt(this.modelView.fillColor), 1);
-    this.fillBar.fillRoundedRect(0, -this.modelView.height / 2, 0, this.modelView.height, this.modelView.borderRadius);
+    this.fillBar.fillRect(0, -this.modelView.height / 2, 0, this.modelView.height);
 
     this.add([this.backgroundBar, this.fillBar]);
   }
@@ -47,7 +46,7 @@ export class LinearProgressBarView extends Phaser.GameObjects.Container {
     const innerRadius = this.modelView.height / 2; 
   
     this.thumbBorder = this.scene.add.graphics();
-    this.thumbBorder.lineStyle(borderWidth, Number(colorMap.greenDark),);
+    this.thumbBorder.lineStyle(borderWidth, Number(colorMap.black),);
     this.thumbBorder.strokeCircle(0, 0, radius);
     this.add(this.thumbBorder);
   
