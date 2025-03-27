@@ -1,14 +1,14 @@
 import Phaser from "phaser";
 import { CardDTO } from "../dto/CardDTO";
-import GameScene from "../scenes/GameScene";
+import GamePlayScene from "../scenes/GamePlayScene";
 
 export default class CardDrawer {
-    private scene: GameScene;
+    private scene: GamePlayScene;
     private cardData: CardDTO[];
     private bingo: { cols: number; rows: number };
 
     constructor(
-        scene: GameScene,
+        scene: GamePlayScene,
         bingo: { cols: number; rows: number },
         cardData: CardDTO[]
     ) {
