@@ -1,0 +1,6 @@
+
+-Sửa lại các thiết kế ( chọn ảnh cho đẹp)
+-push code maze lên github
+
+-Trong đó có 1 vấn đề performance đáng quan ngại, đó là lúc load game mới hoặc lúc end game bị lag một lúc.
+-Và 1 cái nữa nên làm đó là bắt sự kiện resize của windows để responsive lại game
