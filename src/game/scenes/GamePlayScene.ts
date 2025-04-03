@@ -5,9 +5,7 @@ import { BingoData } from "../data/BingoData";
 import { CardData } from "../data/CardData";
 import { CalculationDTO } from "../dto/CalculationDTO";
 import { CalculationData } from "../data/CalculationData";
-import BackgroundLoader from "../utilities/BackgroundLoader";
 import TimerManager from "../utilities/TimerManager";
-import MenuScene from "./MenuScene";
 import SoundManager from "../utilities/SoundManager";
 import CardDrawer from "../utilities/CardDrawer";
 import CalculationDrawer from "../utilities/CalculationDrawer";
@@ -64,11 +62,17 @@ export default class GamePlayScene extends Phaser.Scene {
             "assets/CalculationCard.json"
         );
         this.load.image("whiteBg", "assets/images/whiteBg.png");
-        this.soundManager = new SoundManager(this, ["ScoreMusic"]);
+        this.soundManager = new SoundManager(this, [
+            "ScoreMusic",
+            "BackgroundMusic",
+        ]);
         this.soundManager.preload();
     }
 
     create(): void {
+        if (this.soundManager) {
+            this.soundManager.play("BackgroundMusic", true);
+        }
         if (this.soundManager) {
             this.soundManager.play("ScoreMusic", false);
         }
@@ -81,13 +85,13 @@ export default class GamePlayScene extends Phaser.Scene {
             frameRate: 10,
             repeat: 0,
         });
-        const backgroundLoader = new BackgroundLoader(
-            this,
-            "whiteBg",
-            this.cameras.main.centerX,
-            this.cameras.main.centerY
-        );
-        backgroundLoader.loadBackground();
+        this.add
+            .image(
+                this.cameras.main.centerX,
+                this.cameras.main.centerY,
+                "whiteBg"
+            )
+            .setDisplaySize(this.cameras.main.width, this.cameras.main.height);
         const selectedOperator = this.bingo.operator[0];
         const filteredData = CalculationData.filter((calc) =>
             calc.operator.includes(selectedOperator)
@@ -197,6 +201,7 @@ export default class GamePlayScene extends Phaser.Scene {
                         child instanceof Phaser.GameObjects.Image &&
                         child.name === `cardImage_${cardKey}`
                 ) as Phaser.GameObjects.Image;
+            cardImage.setTint(0xff0000);
 
             const cardText = this.children
                 .getChildren()
@@ -207,8 +212,18 @@ export default class GamePlayScene extends Phaser.Scene {
                 ) as Phaser.GameObjects.Text;
 
             if (cardImage && cardText) {
-                cardImage.destroy();
-                cardText.destroy();
+                this.tweens.add({
+                    targets: cardImage,
+                    y: cardImage.y - 10,
+                    duration: 100,
+                    yoyo: true,
+                    repeat: 1,
+                });
+
+                this.time.delayedCall(1000, () => {
+                    cardImage.destroy();
+                    cardText.destroy();
+                });
             } else {
                 this.checkCorrect(card, cardImage, cardText);
             }
@@ -229,41 +244,77 @@ export default class GamePlayScene extends Phaser.Scene {
 
     checkWin(): boolean {
         const { cols, rows } = this.bingo;
-
         for (let row = 0; row < rows; row++) {
             let markedCount = 0;
+            let winningCells: Phaser.GameObjects.Image[] = [];
+
             for (let col = 0; col < cols; col++) {
                 const index = row * cols + col;
-                if (this.cardData[index].marked) {
+                const card = this.cardData[index];
+                if (card.marked) {
                     markedCount++;
-                    if (markedCount === 5) return true;
+                    winningCells.push(this.getCardImageByIndex(index));
                 } else {
                     markedCount = 0;
+                    winningCells = [];
+                }
+
+                if (markedCount === 5) {
+                    winningCells.forEach((cardImage) => {
+                        cardImage.setTint(0xffff00);
+                    });
+                    return true;
                 }
             }
         }
 
         for (let col = 0; col < cols; col++) {
             let markedCount = 0;
+            let winningCells: Phaser.GameObjects.Image[] = [];
+
             for (let row = 0; row < rows; row++) {
                 const index = row * cols + col;
-                if (this.cardData[index].marked) {
+                const card = this.cardData[index];
+                if (card.marked) {
                     markedCount++;
-                    if (markedCount === 5) return true;
+                    winningCells.push(this.getCardImageByIndex(index));
                 } else {
                     markedCount = 0;
+                    winningCells = [];
+                }
+
+                if (markedCount === 5) {
+                    winningCells.forEach((cardImage) => {
+                        cardImage.setTint(0xffff00);
+                    });
+                    return true;
                 }
             }
         }
 
         return false;
     }
+
+    getCardImageByIndex(index: number): Phaser.GameObjects.Image {
+        const card = this.cardData[index];
+        return this.children
+            .getChildren()
+            .find(
+                (child) =>
+                    child instanceof Phaser.GameObjects.Image &&
+                    child.name === `cardImage_${card.key}`
+            ) as Phaser.GameObjects.Image;
+    }
+
     checkCorrect(
         card: CardDTO,
         cardImage: Phaser.GameObjects.Image,
         cardText: Phaser.GameObjects.Text
     ): void {
         if (card.number === this.currentCalculation.result && !card.marked) {
+            if (this.soundManager) {
+                this.soundManager.play("ScoreMusic", false);
+            }
             const explosion1 = this.add
                 .sprite(200, 100, "explosion")
                 .setDisplaySize(150, 150);
@@ -279,7 +330,13 @@ export default class GamePlayScene extends Phaser.Scene {
             card.marked = true;
             cardImage.setTint(0x00ff00);
             cardImage.disableInteractive();
-
+            this.tweens.add({
+                targets: cardImage,
+                y: cardImage.y - 10,
+                duration: 100,
+                yoyo: true,
+                repeat: 1,
+            });
             const filteredData = CalculationData.filter((calc) =>
                 calc.operator.includes(this.bingo.operator[0])
             );
@@ -297,7 +354,12 @@ export default class GamePlayScene extends Phaser.Scene {
             this.timerManager.reset(this.duration);
 
             if (this.checkWin()) {
-                this.scene.start("EndScene");
+                this.time.delayedCall(3000, () => {
+                    if (this.soundManager) {
+                        this.soundManager.stop("BackgroundMusic");
+                    }
+                    this.scene.start("EndScene");
+                });
             } else {
                 this.updateCalculation(this.bingo.operator[0]);
                 this.calculationText.setText(
@@ -307,6 +369,8 @@ export default class GamePlayScene extends Phaser.Scene {
                 );
             }
         } else {
+            cardImage.setTint(0xff0000);
+
             console.log(
                 `Clicked card: ${card.key}, Index: ${this.cardData.findIndex(
                     (c) => c.key === card.key
@@ -351,13 +415,25 @@ export default class GamePlayScene extends Phaser.Scene {
                     }`
                 );
             }
+            this.tweens.add({
+                targets: cardImage,
+                y: cardImage.y - 10,
+                duration: 100,
+                yoyo: true,
+                repeat: 1,
+            });
 
-            cardImage.destroy();
-            cardText.destroy();
+            this.time.delayedCall(1000, () => {
+                cardImage.destroy();
+                cardText.destroy();
+            });
 
             this.timerManager.reset(this.duration);
 
             if (!this.checkRemainingWinningPaths()) {
+                if (this.soundManager) {
+                    this.soundManager.stop("BackgroundMusic");
+                }
                 this.scene.start("LostScene");
             } else {
                 this.updateCalculation(this.bingo.operator[0]);
@@ -425,6 +501,9 @@ export default class GamePlayScene extends Phaser.Scene {
         );
 
         if (unusedCalculations.length === 0) {
+            if (this.soundManager) {
+                this.soundManager.stop("BackgroundMusic");
+            }
             this.scene.start("LostScene");
             return;
         }

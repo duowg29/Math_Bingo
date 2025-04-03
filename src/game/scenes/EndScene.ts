@@ -1,7 +1,6 @@
 import Phaser from "phaser";
 import { ButtonDTO } from "../dto/ButtonDTO";
 import Button from "../utilities/Button";
-import BackgroundLoader from "../utilities/BackgroundLoader";
 import { textStyle1 } from "../utilities/TextStyle";
 
 export default class EndScene extends Phaser.Scene {
@@ -16,15 +15,15 @@ export default class EndScene extends Phaser.Scene {
     }
 
     create(): void {
-        const backgroundLoader = new BackgroundLoader(
-            this,
-            "whiteBg",
-            this.cameras.main.centerX,
-            this.cameras.main.centerY
-        );
-        backgroundLoader.loadBackground();
-
         this.add
+            .image(
+                this.cameras.main.centerX,
+                this.cameras.main.centerY,
+                "whiteBg"
+            )
+            .setDisplaySize(this.cameras.main.width, this.cameras.main.height);
+
+        const WinImage = this.add
             .image(
                 this.cameras.main.centerX,
                 this.cameras.main.centerY - 100,
@@ -33,6 +32,13 @@ export default class EndScene extends Phaser.Scene {
             .setDisplaySize(400, 300)
             .setOrigin(0.5);
 
+        this.tweens.add({
+            targets: WinImage,
+            y: WinImage.y + 10,
+            duration: 500,
+            yoyo: true,
+            repeat: -1,
+        });
         this.add
             .text(
                 this.cameras.main.centerX,

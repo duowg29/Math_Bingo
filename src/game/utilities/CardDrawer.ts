@@ -26,32 +26,26 @@ export default class CardDrawer {
             return numA - numB;
         });
 
-        // console.log(
-        //     "CardData sau khi sắp xếp:",
-        //     this.cardData.map((card) => card.key).join(" ")
-        // );
-
         let cardIndex = 0;
+
+        const cardWidth = this.cardData[0].width;
+        const cardHeight = this.cardData[0].height;
+        const startX =
+            this.scene.cameras.main.centerX - (cols * cardWidth) / 2 + 50;
+        const startY =
+            this.scene.cameras.main.centerY - (rows * cardHeight) / 2 + 100;
 
         for (let row = 0; row < rows; row++) {
             let rowCards: string[] = [];
             for (let col = 0; col < cols; col++) {
                 const card = this.cardData[cardIndex];
-                const x =
-                    this.scene.cameras.main.centerX -
-                    (cols * card.width) / 2 +
-                    col * card.width +
-                    50;
-                const y =
-                    this.scene.cameras.main.centerY -
-                    (rows * card.height) / 2 +
-                    row * card.height +
-                    100;
+                const x = startX + col * cardWidth;
+                const y = startY + row * cardHeight;
 
                 const cardImage = this.scene.add
                     .image(x, y, "BingoCard")
                     .setFrame(0)
-                    .setDisplaySize(card.width, card.height)
+                    .setDisplaySize(cardWidth, cardHeight)
                     .setOrigin(0.5, 0.5)
                     .setInteractive()
                     .setName(`cardImage_${card.key}`);
@@ -76,5 +70,14 @@ export default class CardDrawer {
             }
             console.log(`Dòng ${row + 1}:`, rowCards.join(" "));
         }
+
+        const borderWidth = cols * cardWidth;
+        const borderHeight = rows * cardHeight;
+        const borderX = startX + borderWidth / 2 - cardWidth / 2;
+        const borderY = startY + borderHeight / 2 - cardHeight / 2;
+
+        this.scene.add
+            .rectangle(borderX, borderY, borderWidth + 10, borderHeight + 10)
+            .setStrokeStyle(15, 0x000000);
     }
 }

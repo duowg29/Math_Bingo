@@ -43,7 +43,7 @@ export default class CalculationDrawer {
             return `${calculation.valueA} ${operatorSymbol} ${calculation.valueB} = ?`;
         } else {
             console.error("Operator is missing or invalid");
-            return `${calculation.valueA} ? ${calculation.valueB} = ?`; // Giá trị mặc định khi không có operator
+            return `${calculation.valueA} ? ${calculation.valueB} = ?`;
         }
     }
     public convertOperatorToSymbol(operator: string): string {

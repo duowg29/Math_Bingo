@@ -2,8 +2,6 @@ import Phaser from "phaser";
 import { ButtonDTO } from "../dto/ButtonDTO";
 import Button from "../utilities/Button";
 import { DurationData } from "../data/DurationData";
-import BackgroundLoader from "../utilities/BackgroundLoader";
-import SoundManager from "../utilities/SoundManager";
 
 export default class SelectDifficulty extends Phaser.Scene {
     private selectedOperator: string | null = null;
@@ -12,7 +10,6 @@ export default class SelectDifficulty extends Phaser.Scene {
     private operatorFills: Phaser.GameObjects.Rectangle[] = [];
     private durationBoxes: Phaser.GameObjects.Rectangle[] = [];
     private durationFills: Phaser.GameObjects.Rectangle[] = [];
-    public soundManager: SoundManager | null = null;
 
     constructor() {
         super({ key: "SelectDifficulty" });
@@ -21,28 +18,22 @@ export default class SelectDifficulty extends Phaser.Scene {
     preload(): void {
         this.load.image("whiteBg", "assets/images/whiteBg.png");
         this.load.image("TeacherImage", "assets/images/TeacherImage.png");
-        this.soundManager = new SoundManager(this, ["BackgroundMusic"]);
-        this.soundManager.preload();
     }
 
     create(): void {
-        if (this.soundManager) {
-            this.soundManager.play("BackgroundMusic", true);
-        }
         this.selectedOperator = null;
         this.selectedDuration = null;
         this.operatorBoxes = [];
         this.operatorFills = [];
         this.durationBoxes = [];
         this.durationFills = [];
-
-        const backgroundLoader = new BackgroundLoader(
-            this,
-            "whiteBg",
-            this.cameras.main.centerX,
-            this.cameras.main.centerY
-        );
-        backgroundLoader.loadBackground();
+        this.add
+            .image(
+                this.cameras.main.centerX,
+                this.cameras.main.centerY,
+                "whiteBg"
+            )
+            .setDisplaySize(this.cameras.main.width, this.cameras.main.height);
 
         const titleText = this.add
             .text(
@@ -167,8 +158,8 @@ export default class SelectDifficulty extends Phaser.Scene {
             })
             .setInteractive();
 
-        box.on("pointerdown", onClick);
-        text.on("pointerdown", onClick);
+        box.on("pointerup", onClick);
+        text.on("pointerup", onClick);
 
         const setHoverCursor = (item: Phaser.GameObjects.GameObject) => {
             item.on("pointerover", () => {

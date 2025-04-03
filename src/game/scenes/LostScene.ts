@@ -1,7 +1,6 @@
 import Phaser from "phaser";
 import { ButtonDTO } from "../dto/ButtonDTO";
 import Button from "../utilities/Button";
-import BackgroundLoader from "../utilities/BackgroundLoader";
 import { textStyle1 } from "../utilities/TextStyle";
 
 export default class LostScene extends Phaser.Scene {
@@ -16,13 +15,13 @@ export default class LostScene extends Phaser.Scene {
     }
 
     create(): void {
-        const backgroundLoader = new BackgroundLoader(
-            this,
-            "whiteBg",
-            this.cameras.main.centerX,
-            this.cameras.main.centerY
-        );
-        backgroundLoader.loadBackground();
+        this.add
+            .image(
+                this.cameras.main.centerX,
+                this.cameras.main.centerY,
+                "whiteBg"
+            )
+            .setDisplaySize(this.cameras.main.width, this.cameras.main.height);
 
         const lostImage = this.add
             .image(

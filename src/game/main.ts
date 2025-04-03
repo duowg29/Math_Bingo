@@ -11,7 +11,6 @@ import LoadingSceneV2 from "./scenes/LoadingSceneV2";
 import LoadingSceneV3 from "./scenes/LoadingSceneV3";
 import { GamePlayScene1 } from "./scenes/TestTableScene";
 import GamePlayScene from "./scenes/GamePlayScene";
-import MenuScene from "./scenes/MenuScene";
 import SelectDifficulty from "./scenes/SelectDifficulty";
 import EndScene from "./scenes/EndScene";
 import LostScene from "./scenes/LostScene";
