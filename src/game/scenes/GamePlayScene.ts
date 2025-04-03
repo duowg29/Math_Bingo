@@ -128,7 +128,7 @@ export default class GamePlayScene extends Phaser.Scene {
         cardDrawer.drawCards();
 
         const timerX = this.cameras.main.centerX;
-        const timerY = 50;
+        const timerY = 70;
         const timerRadius = 40;
 
         const timerClock = this.add.graphics();

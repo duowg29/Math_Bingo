@@ -50,7 +50,7 @@ export default class SelectDifficulty extends Phaser.Scene {
         const teacherImage = this.add
             .image(
                 this.scale.width / 1.5,
-                this.scale.height * 0.4,
+                this.scale.height * 0.5,
                 "TeacherImage"
             )
             .setDisplaySize(this.scale.width * 0.3, this.scale.height * 0.3)
@@ -94,7 +94,7 @@ export default class SelectDifficulty extends Phaser.Scene {
             .text(
                 this.scale.width * 0.2,
                 this.scale.height * 0.6,
-                "Difficulty",
+                "Difficulty?",
                 {
                     font: "30px Arial",
                     color: "#000000",
@@ -122,7 +122,7 @@ export default class SelectDifficulty extends Phaser.Scene {
             "startButton",
             "Start",
             this.scale.width / 1.4,
-            this.scale.height * 0.65,
+            this.scale.height * 0.7,
             this.scale.width * 0.2,
             this.scale.height * 0.1,
             this.startGame.bind(this),
