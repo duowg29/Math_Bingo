@@ -45,11 +45,11 @@ export default class SelectDifficulty extends Phaser.Scene {
 
         const teacherImage = this.add
             .image(
-                this.scale.width / 1.5,
-                this.scale.height * 0.5,
+                this.scale.width / 1.35,
+                this.scale.height * 0.55,
                 "TeacherImage"
             )
-            .setDisplaySize(this.scale.width * 0.3, this.scale.height * 0.3)
+            .setDisplaySize(this.scale.width * 1, this.scale.height * 1)
             .setOrigin(0.5, 0.5);
 
         const operatorText = this.add
@@ -77,7 +77,6 @@ export default class SelectDifficulty extends Phaser.Scene {
                 operator,
                 () => {
                     this.selectOperator(operator, index);
-                    this.animateTeacher(teacherImage);
                 }
             );
             this.operatorBoxes.push(box);
@@ -108,7 +107,6 @@ export default class SelectDifficulty extends Phaser.Scene {
                 difficulty.key,
                 () => {
                     this.selectDuration(difficulty.duration, index);
-                    this.animateTeacher(teacherImage);
                 }
             );
             this.durationBoxes.push(box);
@@ -123,8 +121,8 @@ export default class SelectDifficulty extends Phaser.Scene {
         const startButtonDTO = new ButtonDTO(
             "startButton",
             "Start",
-            this.scale.width / 1.4,
-            this.scale.height * 0.75,
+            this.cameras.main.centerX,
+            this.scale.height * 0.9,
             this.scale.width * 0.2,
             this.scale.height * 0.1,
             this.startGame.bind(this),
@@ -132,21 +130,6 @@ export default class SelectDifficulty extends Phaser.Scene {
         );
 
         new Button(this, startButtonDTO);
-    }
-    private animateTeacher(teacherImage: Phaser.GameObjects.Image) {
-        const initialY = this.scale.height * 0.5;
-        const initialX = this.scale.width / 1.5;
-
-        this.tweens.add({
-            targets: teacherImage,
-            y: initialY + 20,
-            duration: 500,
-            yoyo: true,
-            onComplete: () => {
-                teacherImage.x = initialX;
-                teacherImage.y = initialY;
-            },
-        });
     }
     private createCheckBox(
         x: number,
