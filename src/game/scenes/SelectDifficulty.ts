@@ -18,6 +18,7 @@ export default class SelectDifficulty extends Phaser.Scene {
     preload(): void {
         this.load.image("whiteBg", "assets/images/whiteBg.png");
         this.load.image("TeacherImage", "assets/images/TeacherImage.png");
+        this.load.image("mathBingo", "assets/images/mathBingo.png");
     }
 
     create(): void {
@@ -27,6 +28,7 @@ export default class SelectDifficulty extends Phaser.Scene {
         this.operatorFills = [];
         this.durationBoxes = [];
         this.durationFills = [];
+
         this.add
             .image(
                 this.cameras.main.centerX,
@@ -35,17 +37,11 @@ export default class SelectDifficulty extends Phaser.Scene {
             )
             .setDisplaySize(this.cameras.main.width, this.cameras.main.height);
 
-        const titleText = this.add
-            .text(
-                this.scale.width / 2,
-                this.scale.height * 0.2,
-                "Select Difficulty",
-                {
-                    font: "60px Arial",
-                    color: "#000000",
-                }
-            )
-            .setOrigin(0.5);
+        const mathBingo = this.add.image(
+            this.scale.width / 2,
+            this.scale.height * 0.17,
+            "mathBingo"
+        );
 
         const teacherImage = this.add
             .image(
@@ -59,11 +55,11 @@ export default class SelectDifficulty extends Phaser.Scene {
         const operatorText = this.add
             .text(
                 this.scale.width * 0.2,
-                this.scale.height * 0.4,
+                this.scale.height * 0.35,
                 "Operator?",
                 {
                     font: "30px Arial",
-                    color: "#000000",
+                    color: "#2c3e50",
                 }
             )
             .setOrigin(0);
@@ -75,11 +71,14 @@ export default class SelectDifficulty extends Phaser.Scene {
             "Division",
         ];
         operators.forEach((operator, index) => {
-            const { box, fill } = this.createCheckBox(
-                this.scale.width * 0.2,
-                this.scale.height * 0.46 + index * 30,
+            const { box, fill, text } = this.createCheckBox(
+                this.scale.width * 0.29,
+                this.scale.height * 0.42 + index * 40,
                 operator,
-                () => this.selectOperator(operator, index)
+                () => {
+                    this.selectOperator(operator, index);
+                    this.animateTeacher(teacherImage);
+                }
             );
             this.operatorBoxes.push(box);
             this.operatorFills.push(fill);
@@ -97,17 +96,20 @@ export default class SelectDifficulty extends Phaser.Scene {
                 "Difficulty?",
                 {
                     font: "30px Arial",
-                    color: "#000000",
+                    color: "#2c3e50",
                 }
             )
             .setOrigin(0);
 
         DurationData.forEach((difficulty, index) => {
-            const { box, fill } = this.createCheckBox(
-                this.scale.width * 0.2,
-                this.scale.height * 0.66 + index * 30,
+            const { box, fill, text } = this.createCheckBox(
+                this.scale.width * 0.29,
+                this.scale.height * 0.67 + index * 40,
                 difficulty.key,
-                () => this.selectDuration(difficulty.duration, index)
+                () => {
+                    this.selectDuration(difficulty.duration, index);
+                    this.animateTeacher(teacherImage);
+                }
             );
             this.durationBoxes.push(box);
             this.durationFills.push(fill);
@@ -122,7 +124,7 @@ export default class SelectDifficulty extends Phaser.Scene {
             "startButton",
             "Start",
             this.scale.width / 1.4,
-            this.scale.height * 0.7,
+            this.scale.height * 0.75,
             this.scale.width * 0.2,
             this.scale.height * 0.1,
             this.startGame.bind(this),
@@ -131,7 +133,21 @@ export default class SelectDifficulty extends Phaser.Scene {
 
         new Button(this, startButtonDTO);
     }
+    private animateTeacher(teacherImage: Phaser.GameObjects.Image) {
+        const initialY = this.scale.height * 0.5;
+        const initialX = this.scale.width / 1.5;
 
+        this.tweens.add({
+            targets: teacherImage,
+            y: initialY + 20,
+            duration: 500,
+            yoyo: true,
+            onComplete: () => {
+                teacherImage.x = initialX;
+                teacherImage.y = initialY;
+            },
+        });
+    }
     private createCheckBox(
         x: number,
         y: number,
@@ -148,30 +164,42 @@ export default class SelectDifficulty extends Phaser.Scene {
             .setInteractive();
 
         const fill = this.add
-            .rectangle(x, y, 15, 15, 0x000000)
+            .rectangle(x, y, 15, 15, 0x2ecc71)
             .setVisible(false);
 
         const text = this.add
             .text(x + 30, y - 10, label, {
                 font: "20px Arial",
-                color: "#000000",
+                color: "#2c3e50",
             })
             .setInteractive();
 
         box.on("pointerup", onClick);
         text.on("pointerup", onClick);
 
-        const setHoverCursor = (item: Phaser.GameObjects.GameObject) => {
+        const setHoverEffect = (item: Phaser.GameObjects.GameObject) => {
             item.on("pointerover", () => {
                 this.input.setDefaultCursor("pointer");
+                this.tweens.add({
+                    targets: item,
+                    scale: 1.1,
+                    duration: 200,
+                    ease: "Power1",
+                });
             });
             item.on("pointerout", () => {
                 this.input.setDefaultCursor("default");
+                this.tweens.add({
+                    targets: item,
+                    scale: 1,
+                    duration: 200,
+                    ease: "Power1",
+                });
             });
         };
 
-        setHoverCursor(box);
-        setHoverCursor(text);
+        setHoverEffect(box);
+        setHoverEffect(text);
 
         return { box, fill, text };
     }

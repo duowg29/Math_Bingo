@@ -25,7 +25,9 @@
         "typescript"
     ],
     "scripts": {
-        "dev": "node log.js dev & next dev -p 3007",
+        "copy-assets": "copyfiles -u 5 node_modules/mct-common/public/assets/images/*     public/assets/images",
+        "clean": "rm -rf dist",
+        "dev": "npm run copy-assets & node log.js dev & next dev -p 3003",
         "build": "node log.js build & next build",
         "dev-nolog": "next dev -p 3007",
         "build-nolog": "next build",
@@ -44,6 +46,7 @@
         "@types/node": "20.17.17",
         "@types/react": "^18",
         "@types/react-dom": "^18",
+        "copyfiles": "^2.4.1",
         "typescript": "^5"
     }
 }
